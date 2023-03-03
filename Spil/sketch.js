@@ -2,7 +2,7 @@ let health = 100;
 let gold = 100;
 let intro = true;
 let cultist = false;
-let start_følger, introbox, knap, player;
+let start_følger, textbox, knap, player;
 let navn = [
   ["Caroline"],
   ["Bob"],
@@ -26,7 +26,7 @@ let followers = [];
 function setup() {
   createCanvas(520, 500);
   followers.push(new Follower(followers.length));
-  introbox = new Tekst();
+  textbox = new Tekst();
   player = new Player();
 }
 
@@ -46,13 +46,13 @@ function draw() {
   }
   //Lav textboxes
   if (intro == true) {
-    introbox.show(
+    textbox.show(
       "Introduction",
       "Welcome and congratualtions. You are now a cult leader. How? Who knows? Plot related reasons i guess. Anyway, you have one loyal follower to start you off, but you'll need more. That is your goal now."
     );
   }
   if (cultist == true) {
-    introbox.show(
+    textbox.show(
       "Cultist",
       "You found a lonely soul wandering the streets. You convince them to join your cult"
     );
