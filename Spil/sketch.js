@@ -2,7 +2,7 @@ let health = 100;
 let gold = 100;
 let intro = true;
 let cultist = false;
-let start_følger, textbox, knap, player;
+let textbox, knap, player, textbox_cultist;
 let navn = [
   ["Caroline"],
   ["Bob"],
@@ -27,18 +27,18 @@ function setup() {
   createCanvas(520, 500);
   followers.push(new Follower(followers.length));
   textbox = new Tekst();
+  textbox_cultist = new Cultist_Tekst();
   player = new Player();
+  test_button = new Button();
+  knap = new Button();
 }
 
 function draw() {
   background(220);
-  print(cultist);
   //Lav knap + følger_1
   if (intro == false) {
     player.show();
-    knap = createButton("Roll dice");
-    knap.position(250, 250);
-    knap.mousePressed(roll_dice);
+    knap.create(222.5, 250, 75, 25, "Roll dice", roll_dice);
     //Lav følgere:
     for (let i = 0; i < followers.length; i++) {
       followers[i].test();
@@ -46,31 +46,27 @@ function draw() {
   }
   //Lav textboxes
   if (intro == true) {
-    textbox.show(
-      "Introduction",
-      "Welcome and congratualtions. You are now a cult leader. How? Who knows? Plot related reasons i guess. Anyway, you have one loyal follower to start you off, but you'll need more. That is your goal now."
-    );
+    textbox.show();
   }
   if (cultist == true) {
-    textbox.show(
-      "Cultist",
-      "You found a lonely soul wandering the streets. You convince them to join your cult"
-    );
+    textbox_cultist.draw();
   }
 }
 
-function mousePressed() {
+function mousePressed(/*x = 0, y = 0, w = 0, h = 0, funct*/) {
   if (intro == true) {
     intro = false;
   }
-  /*if (cultist == true) {
+}
+
+function cultist_false() {
+  if ((cultist = true)) {
     cultist = false;
-  }*/
+  }
 }
 
 function roll_dice() {
   let number = Math.floor(Math.random() * 3) + 1;
-  print(number);
   if (number == 1) {
     lav_følger();
   } else if (number == 2) {
@@ -78,6 +74,7 @@ function roll_dice() {
   } else if (number == 3) {
     school();
   }
+  number = 0;
 }
 
 function lav_følger() {
@@ -153,8 +150,12 @@ class Follower {
 }
 
 class Tekst {
-  constructor() {}
-  show(headning, tekst) {
+  constructor() {
+    this.heading = "Introduction";
+    this.text =
+      "Welcome and congratualtions. You are now a cult leader. How? Who knows? Plot related reasons i guess. Anyway, you have one loyal follower to start you off, but you'll need more. That is your goal now.";
+  }
+  show() {
     fill(0, 0, 0, 200);
     rect(
       width * 0.1,
@@ -166,9 +167,47 @@ class Tekst {
     fill(255);
     textAlign(CENTER, TOP);
     textSize(20);
-    text(headning, width * 0.1, height * 0.25, 400, 50);
+    text(this.heading, width * 0.1, height * 0.25, 400, 50);
     //Underskrift
     textSize(15);
-    text(tekst, width * 0.1, height * 0.31, 410, 250);
+    text(this.text, width * 0.1, height * 0.31, 410, 250);
+  }
+}
+
+class Cultist_Tekst extends Tekst {
+  constructor() {
+    super();
+    this.heading = "Cultist";
+    this.text =
+      "You found a lonely soul wandering the streets. You convince them to join your cult";
+    this.button_text = "Continue";
+    this.button1;
+    this.button2;
+  }
+  draw() {
+    super.show();
+    test_button.create(70, 340, 75, 25, this.button_text, cultist_false);
+    /* this.button1 = createButton(this.button_text);
+    this.button1.position(70, 340);
+    this.button1.mousePressed((cultist = false));*/
+  }
+}
+
+class Button {
+  constructor() {}
+  create(x, y, w, h, tekst, funct) {
+    fill(200);
+    rect(x, y, w, h);
+    textAlign(CENTER, CENTER);
+    textSize(12);
+    fill(0);
+    text(tekst, x + w / 2, y + h / 2);
+    if (mouseIsPressed) {
+      if (mouseX > x && mouseX < x + w) {
+        if (mouseY > y && mouseY < y + h) {
+          funct();
+        }
+      }
+    }
   }
 }
