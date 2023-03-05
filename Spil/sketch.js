@@ -2,7 +2,7 @@ let health = 100;
 let gold = 100;
 let intro = true;
 let cultist = false;
-let textbox, knap, player, textbox_cultist;
+let textbox, dice_button, player, textbox_cultist;
 let navn = [
   ["Caroline"],
   ["Bob"],
@@ -27,6 +27,7 @@ let picture = [
   ["Pictures/Face3.png"],
   ["Pictures/Face4.png"],
 ];
+let cultist_button = [];
 let images = [];
 let followers = [];
 
@@ -42,8 +43,10 @@ function setup() {
   textbox = new Tekst();
   textbox_cultist = new Cultist_Tekst();
   player = new Player();
-  test_button = new Button(70, 340, 75, 25, cultist_false);
-  knap = new Button(222.5, 250, 75, 25, roll_dice);
+  dice_button = new Button(222.5, 250, 75, 25, roll_dice);
+  for (let i = 0; i < 2; i++) {
+    cultist_button.push(new Button(70, 340 - i * 60, 120, 25, cultist_false));
+  }
 }
 
 function draw() {
@@ -51,7 +54,7 @@ function draw() {
   //Lav knap + følger_1
   if (intro == false) {
     player.show();
-    knap.create("Roll dice");
+    dice_button.create("Roll dice");
     //Lav følgere:
     for (let i = 0; i < followers.length; i++) {
       followers[i].test();
@@ -67,11 +70,19 @@ function draw() {
 }
 
 function mousePressed(/*x = 0, y = 0, w = 0, h = 0, funct*/) {
+  if (intro == false) {
+    if (cultist == false) {
+      dice_button.clicked();
+    }
+  }
   if (intro == true) {
     intro = false;
   }
-  knap.clicked();
-  test_button.clicked();
+  if (cultist == true) {
+    for (let i = 0; i < cultist_button.length; i++) {
+      cultist_button[i].clicked();
+    }
+  }
 }
 
 function cultist_false() {
@@ -107,9 +118,12 @@ function scenario() {
     chest();
   }
 }
+function ambush() {
+  //Attack!
+}
 
 function chest() {
-  //Get more gold
+  //Get more gold. Maybe random between 1 - 100
 }
 
 function school() {
@@ -148,6 +162,7 @@ class Follower {
     rect(this.x + 20, 20, 80, 120); //whole
     rect(this.x + 20, 120, 80, 20); //lower
     rect(this.x + 20, 20, 80, 20); //upper
+    //picture
     image(this.picture, this.x + 21, 41);
     this.picture.resize(78, 78);
     fill(0);
@@ -197,17 +212,14 @@ class Cultist_Tekst extends Tekst {
     super();
     this.heading = "Cultist";
     this.text =
-      "You found a lonely soul wandering the streets. You convince them to join your cult";
-    this.button_text = "Continue";
-    this.button1;
-    this.button2;
+      "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?";
+    this.button_text = [["Try to convince them"], ["Leave them be"]];
   }
   draw() {
     super.show();
-    test_button.create(this.button_text);
-    /* this.button1 = createButton(this.button_text);
-    this.button1.position(70, 340);
-    this.button1.mousePressed((cultist = false));*/
+    for (let i = 0; i < cultist_button.length; i++) {
+      cultist_button[i].create(this.button_text[i]);
+    }
   }
 }
 
