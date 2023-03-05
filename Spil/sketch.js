@@ -29,8 +29,8 @@ function setup() {
   textbox = new Tekst();
   textbox_cultist = new Cultist_Tekst();
   player = new Player();
-  test_button = new Button();
-  knap = new Button();
+  test_button = new Button(70, 340, 75, 25, cultist_false);
+  knap = new Button(222.5, 250, 75, 25, roll_dice);
 }
 
 function draw() {
@@ -38,7 +38,7 @@ function draw() {
   //Lav knap + følger_1
   if (intro == false) {
     player.show();
-    knap.create(222.5, 250, 75, 25, "Roll dice", roll_dice);
+    knap.create("Roll dice");
     //Lav følgere:
     for (let i = 0; i < followers.length; i++) {
       followers[i].test();
@@ -57,6 +57,8 @@ function mousePressed(/*x = 0, y = 0, w = 0, h = 0, funct*/) {
   if (intro == true) {
     intro = false;
   }
+  knap.clicked();
+  test_button.clicked();
 }
 
 function cultist_false() {
@@ -66,7 +68,7 @@ function cultist_false() {
 }
 
 function roll_dice() {
-  let number = Math.floor(Math.random() * 3) + 1;
+  let number = Math.floor(Math.random() * 1) + 1;
   if (number == 1) {
     lav_følger();
   } else if (number == 2) {
@@ -186,7 +188,7 @@ class Cultist_Tekst extends Tekst {
   }
   draw() {
     super.show();
-    test_button.create(70, 340, 75, 25, this.button_text, cultist_false);
+    test_button.create(this.button_text);
     /* this.button1 = createButton(this.button_text);
     this.button1.position(70, 340);
     this.button1.mousePressed((cultist = false));*/
@@ -194,19 +196,25 @@ class Cultist_Tekst extends Tekst {
 }
 
 class Button {
-  constructor() {}
-  create(x, y, w, h, tekst, funct) {
+  constructor(x, y, w, h, funct) {
+    this.x = x;
+    this.y = y;
+    this.w = w;
+    this.h = h;
+    this.funct = funct;
+  }
+  create(tekst) {
     fill(200);
-    rect(x, y, w, h);
+    rect(this.x, this.y, this.w, this.h);
     textAlign(CENTER, CENTER);
     textSize(12);
     fill(0);
-    text(tekst, x + w / 2, y + h / 2);
-    if (mouseIsPressed) {
-      if (mouseX > x && mouseX < x + w) {
-        if (mouseY > y && mouseY < y + h) {
-          funct();
-        }
+    text(tekst, this.x + this.w / 2, this.y + this.h / 2);
+  }
+  clicked() {
+    if (mouseX > this.x && mouseX < this.x + this.w) {
+      if (mouseY > this.y && mouseY < this.y + this.h) {
+        this.funct();
       }
     }
   }
