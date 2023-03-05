@@ -21,7 +21,20 @@ let navn = [
   ["Hekate"],
   ["Lillith"],
 ];
+let picture = [
+  ["Pictures/Face.png"],
+  ["Pictures/Face2.png"],
+  ["Pictures/Face3.png"],
+  ["Pictures/Face4.png"],
+];
+let images = [];
 let followers = [];
+
+function preload() {
+  for (let i = 0; i < picture.length; i++) {
+    images.push(loadImage(picture[i]));
+  }
+}
 
 function setup() {
   createCanvas(520, 500);
@@ -126,6 +139,7 @@ class Follower {
     this.defence = Math.floor(Math.random() * 6);
     this.sneak = Math.floor(Math.random() * 6);
     this.name = navn[Math.floor(Math.random() * navn.length)];
+    this.picture = images[Math.floor(Math.random() * images.length)];
   }
   test() {
     fill(250);
@@ -134,6 +148,8 @@ class Follower {
     rect(this.x + 20, 20, 80, 120); //whole
     rect(this.x + 20, 120, 80, 20); //lower
     rect(this.x + 20, 20, 80, 20); //upper
+    image(this.picture, this.x + 21, 41);
+    this.picture.resize(78, 78);
     fill(0);
     text(this.name, this.x + 60, 30); //Name
     text(this.attack, this.x + 37, 130); //Attack
