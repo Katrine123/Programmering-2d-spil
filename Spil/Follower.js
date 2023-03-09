@@ -116,42 +116,6 @@ function dont_convince() {
   state = "dont_convince";
 }
 
-function convince_false() {
-  if (convince == true) {
-    convince = false;
-  }
-}
-
-function cant_convince_false() {
-  if (cant_convince == true) {
-    cant_convince = false;
-  }
-}
-
-function non_convince_false() {
-  if (non_convince == true) {
-    non_convince = false;
-  }
-}
-/////
-
-function try_convince() {
-  let number = Math.floor(Math.random() * followers.length + 1);
-  print(number);
-  if (number == 1) {
-    lav_følger();
-    convince = true;
-  } else {
-    cant_convince = true;
-  }
-  cultist_false();
-}
-
-function dont_convince() {
-  non_convince = true;
-  cultist_false();
-}
-
 //Lav en ny følger
 function lav_følger() {
   if (followers.length < 5) {
