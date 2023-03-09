@@ -15,6 +15,7 @@ function setup() {
 
 function draw() {
   background(220);
+  print(convince, choices[0]);
   //Lav knap + følger_1
   if (state != "intro") {
     player.show();
