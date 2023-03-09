@@ -27,10 +27,6 @@ let followers = [];
 let cultist_button = [];
 let choices = [[], []];
 let textbox_cultist = [];
-let cultist = false;
-let convince = false;
-let cant_convince = false;
-let non_convince = false;
 
 //Load billeder
 function preload() {
@@ -39,47 +35,85 @@ function preload() {
   }
 }
 
+//Setup:
+function follower_setup() {
+  followers.push(new Follower(followers.length));
+  textbox_cultist.push(
+    new Cultist_Tekst([["Try to convince them"], ["Leave them be"]])
+  );
+  textbox_cultist.push(new Cultist_Tekst(["Continue"]));
+}
+
+//Draw: Cultist true/false:
+function follower_draw() {
+  print(screen, state);
+  //Lav følgere:
+  if (state != "intro") {
+    for (let i = 0; i < followers.length; i++) {
+      followers[i].test();
+    }
+  }
+
+  //Cultist screen.
+  if (state == "cultist") {
+    choices[0] = try_convince;
+    choices[1] = dont_convince;
+    textbox_cultist[0].draw(
+      "Cultist",
+      "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?"
+    );
+  }
+  //Success screen
+  if (state == "convince") {
+    choices[0] = state_idle;
+    textbox_cultist[1].draw(
+      "Succes",
+      "You managed to convince them, now having " +
+        followers.length +
+        " followers at your beg and call"
+    );
+  }
+  //Faliure screen
+  if (state == "cant_convince") {
+    choices[0] = state_idle;
+    textbox_cultist[1].draw(
+      "Faliure",
+      "'Uh, no thanks.' They look at you wierdly and slowly walk away. You convince yourself that they weren't cut out for it anyway"
+    );
+  }
+  //Leave them be screen:
+  if (state == "dont_convince") {
+    choices[0] = state_idle;
+    textbox_cultist[1].draw(
+      "Leave them be",
+      "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway"
+    );
+  }
+}
+
 //"Sluk" alting (Saml til en funktion maybe?):
-function cultist_false() {
-  if (cultist == true) {
-    cultist = false;
-  }
+function state_idle() {
+  state = "idle";
+  screen = false;
 }
 
-function convince_false() {
-  if (convince == true) {
-    convince = false;
-  }
-}
-
-function cant_convince_false() {
-  if (cant_convince == true) {
-    cant_convince = false;
-  }
-}
-
-function non_convince_false() {
-  if (non_convince == true) {
-    non_convince = false;
-  }
-}
 /////
 
+//Try to convince follower:
+//Success:
 function try_convince() {
   let number = Math.floor(Math.random() * followers.length + 1);
-  print(number);
   if (number == 1) {
     lav_følger();
-    convince = true;
+    state = "convince";
   } else {
-    cant_convince = true;
+    state = "cant_convince";
   }
-  cultist_false();
 }
 
+//Faliure:
 function dont_convince() {
-  non_convince = true;
-  cultist_false();
+  state = "dont_convince";
 }
 
 //Lav en ny følger
@@ -100,6 +134,9 @@ class Follower {
     //Navn + billede
     this.name = navn[Math.floor(Math.random() * navn.length)];
     this.picture = images[Math.floor(Math.random() * images.length)];
+    //Arrays
+    navn.splice(navn.indexOf(this.name), 1);
+    images.splice(images.indexOf(this.picture), 1);
   }
   test() {
     fill(250);
