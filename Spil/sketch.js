@@ -64,7 +64,7 @@ function mousePressed() {
   if (intro == true) {
     intro = false;
   }
-  if (cultist == true) {
+  if (cultist == true || convince == true) {
     for (let i = 0; i < cultist_button.length; i++) {
       cultist_button[i].clicked(choices[i]);
     }
