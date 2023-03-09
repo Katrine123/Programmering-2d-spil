@@ -27,6 +27,10 @@ let followers = [];
 let cultist_button = [];
 let choices = [[], []];
 let textbox_cultist = [];
+let cultist = false;
+let convince = false;
+let cant_convince = false;
+let non_convince = false;
 
 //Load billeder
 function preload() {
@@ -35,7 +39,7 @@ function preload() {
   }
 }
 
-//"Sluk" cultistskærmen
+//"Sluk" alting (Saml til en funktion maybe?):
 function cultist_false() {
   if (cultist == true) {
     cultist = false;
@@ -48,17 +52,33 @@ function convince_false() {
   }
 }
 
+function cant_convince_false() {
+  if (cant_convince == true) {
+    cant_convince = false;
+  }
+}
+
+function non_convince_false() {
+  if (non_convince == true) {
+    non_convince = false;
+  }
+}
+/////
+
 function try_convince() {
   let number = Math.floor(Math.random() * followers.length + 1);
   print(number);
   if (number == 1) {
     lav_følger();
     convince = true;
+  } else {
+    cant_convince = true;
   }
   cultist_false();
 }
 
 function dont_convince() {
+  non_convince = true;
   cultist_false();
 }
 

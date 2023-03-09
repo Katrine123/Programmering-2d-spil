@@ -1,8 +1,7 @@
 let health = 100;
 let gold = 100;
 let intro = true;
-let cultist = false;
-let convince = false;
+
 let textbox, dice_button, player;
 
 function setup() {
@@ -53,6 +52,20 @@ function draw() {
         " followers at your beg and call"
     );
   }
+  if (cant_convince == true) {
+    choices[0] = cant_convince_false;
+    textbox_cultist[1].draw(
+      "Faliure",
+      "- Uh, no thanks - They look at you wierdly and slowly walk away. You convince yourself that they weren't cut out for it anyway"
+    );
+  }
+  if (non_convince == true) {
+    choices[0] = non_convince_false;
+    textbox_cultist[1].draw(
+      "Let them be",
+      "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway"
+    );
+  }
 }
 
 function mousePressed() {
@@ -64,7 +77,12 @@ function mousePressed() {
   if (intro == true) {
     intro = false;
   }
-  if (cultist == true || convince == true) {
+  if (
+    cultist == true ||
+    convince == true ||
+    cant_convince == true ||
+    non_convince == true
+  ) {
     for (let i = 0; i < cultist_button.length; i++) {
       cultist_button[i].clicked(choices[i]);
     }
