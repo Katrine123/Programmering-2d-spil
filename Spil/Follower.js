@@ -25,6 +25,12 @@ let picture = [
 let images = [];
 let followers = [];
 let cultist_button = [];
+let choices = [[], []];
+let textbox_cultist = [];
+let cultist = false;
+let convince = false;
+let cant_convince = false;
+let non_convince = false;
 
 //Load billeder
 function preload() {
@@ -33,16 +39,51 @@ function preload() {
   }
 }
 
-//"Sluk" cultistskærmen
+//"Sluk" alting (Saml til en funktion maybe?):
 function cultist_false() {
-  if ((cultist = true)) {
+  if (cultist == true) {
     cultist = false;
   }
 }
 
+function convince_false() {
+  if (convince == true) {
+    convince = false;
+  }
+}
+
+function cant_convince_false() {
+  if (cant_convince == true) {
+    cant_convince = false;
+  }
+}
+
+function non_convince_false() {
+  if (non_convince == true) {
+    non_convince = false;
+  }
+}
+/////
+
+function try_convince() {
+  let number = Math.floor(Math.random() * followers.length + 1);
+  print(number);
+  if (number == 1) {
+    lav_følger();
+    convince = true;
+  } else {
+    cant_convince = true;
+  }
+  cultist_false();
+}
+
+function dont_convince() {
+  non_convince = true;
+  cultist_false();
+}
+
 //Lav en ny følger
 function lav_følger() {
-  cultist = true;
   if (followers.length < 5) {
     followers.push(new Follower(followers.length));
   }
@@ -91,18 +132,18 @@ class Follower {
 
 //Cultist textboxen
 class Cultist_Tekst extends Tekst {
-  constructor() {
+  constructor(button) {
     super();
     //Teksten
-    this.heading = "Cultist";
-    this.text =
-      "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?";
-    this.button_text = [["Try to convince them"], ["Leave them be"]];
+    this.button_text = button;
+    for (let i = 0; i < 2; i++) {
+      cultist_button.push(new Button(70, 340 - i * 60, 120, 25));
+    }
   }
-  draw() {
-    super.show();
+  draw(heading, tekst) {
+    super.show(heading, tekst);
     //Lav "svarmulighederne"
-    for (let i = 0; i < cultist_button.length; i++) {
+    for (let i = 0; i < this.button_text.length; i++) {
       cultist_button[i].create(this.button_text[i]);
     }
   }
