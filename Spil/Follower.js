@@ -17,14 +17,17 @@ let navn = [
   ["Lillith"],
 ];
 let picture = [
-  ["Pictures/Face.png"],
+  ["Pictures/Face1.png"],
   ["Pictures/Face2.png"],
   ["Pictures/Face3.png"],
   ["Pictures/Face4.png"],
+  ["Pictures/Face5.png"],
+  ["Pictures/Face6.png"],
+  ["Pictures/Face7.png"],
 ];
 let images = [];
 let followers = [];
-let cultist_button = [];
+let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
 
@@ -39,9 +42,9 @@ function preload() {
 function follower_setup() {
   followers.push(new Follower(followers.length));
   textbox_cultist.push(
-    new Cultist_Tekst([["Try to convince them"], ["Leave them be"]])
+    new Text_with_button([["Try to convince them"], ["Leave them be"]])
   );
-  textbox_cultist.push(new Cultist_Tekst(["Continue"]));
+  textbox_cultist.push(new Text_with_button(["Continue"]));
 }
 
 //Draw: Cultist true/false:
@@ -167,21 +170,22 @@ class Follower {
   }
 }
 
-//Cultist textboxen
-class Cultist_Tekst extends Tekst {
+//Textbox with buttons
+class Text_with_button extends Tekst {
   constructor(button) {
     super();
-    //Teksten
+    //The button text
     this.button_text = button;
-    for (let i = 0; i < 2; i++) {
-      cultist_button.push(new Button(70, 340 - i * 60, 120, 25));
+    //Makes two buttons
+    for (let i = 0; i < this.button_text.length; i++) {
+      buttons.push(new Button(70, 340 - i * 60, 120, 25));
     }
   }
   draw(heading, tekst) {
     super.show(heading, tekst);
-    //Lav "svarmulighederne"
+    //Shows the buttons
     for (let i = 0; i < this.button_text.length; i++) {
-      cultist_button[i].create(this.button_text[i]);
+      buttons[i].create(this.button_text[i]);
     }
   }
 }

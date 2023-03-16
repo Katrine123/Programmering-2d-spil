@@ -1,5 +1,3 @@
-let health = 100;
-let gold = 100;
 let intro = true;
 let textbox, dice_button, player;
 let screen = true;
@@ -8,6 +6,8 @@ let state = "intro";
 function setup() {
   createCanvas(520, 500);
   follower_setup();
+  school_setup();
+  attack_setup;
   textbox = new Tekst();
   player = new Player();
   dice_button = new Button(222.5, 250, 75, 25);
@@ -28,6 +28,8 @@ function draw() {
     );
   }
   follower_draw();
+  school_draw();
+  attack_draw();
 }
 
 function mousePressed() {
@@ -39,18 +41,19 @@ function mousePressed() {
     screen = false;
   }
   if (screen == true) {
-    for (let i = 0; i < cultist_button.length; i++) {
-      cultist_button[i].clicked(choices[i]);
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].clicked(choices[i]);
     }
   }
 }
 
 function roll_dice() {
-  let number = Math.floor(Math.random() * 1) + 1;
+  let number = Math.floor(Math.random() * 2) + 1;
   if (number == 1) {
     state = "cultist";
   } else if (number == 2) {
-    school();
+    state = "school";
+    follower_who = followers[Math.floor(Math.random() * followers.length)];
   } else if (number == 3) {
     scenario();
   }
