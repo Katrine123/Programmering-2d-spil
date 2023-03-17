@@ -30,7 +30,7 @@ let followers = [];
 let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
-let stats;
+let stats, a, d, s;
 
 //Load billeder
 function preload() {
