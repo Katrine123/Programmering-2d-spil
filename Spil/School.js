@@ -41,9 +41,9 @@ function school_draw() {
 function school_yes() {
   player.gold -= 25;
   state = "school_yes";
-  follower_who.attack += 1;
+  follower_who.health += 1;
   follower_who.sneak += 1;
-  follower_who.defence += 1;
+  follower_who.attack += 1;
 }
 
 function school_no() {

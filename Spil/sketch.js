@@ -7,7 +7,7 @@ function setup() {
   createCanvas(520, 500);
   follower_setup();
   school_setup();
-  attack_setup;
+  attack_setup();
   textbox = new Tekst();
   player = new Player();
   dice_button = new Button(222.5, 250, 75, 25);
@@ -48,37 +48,25 @@ function mousePressed() {
 }
 
 function roll_dice() {
-  let number = Math.floor(Math.random() * 2) + 1;
+  let number = Math.floor(Math.random() * 3) + 1;
   if (number == 1) {
     state = "cultist";
   } else if (number == 2) {
     state = "school";
     follower_who = followers[Math.floor(Math.random() * followers.length)];
   } else if (number == 3) {
-    scenario();
+    state = "scenario";
   }
   screen = true;
   number = 0;
 }
 
-function scenario() {
-  let number = Math.floor(Math.random() * 5) + 1;
-  if (number <= 4) {
-    ambush();
-  } else if (number == 5) {
-    chest();
-  }
-}
 function ambush() {
   //Attack!
 }
 
 function chest() {
   //Get more gold. Maybe random between 1 - 100
-}
-
-function school() {
-  //upgrade follower somehow??
 }
 
 class Player {
