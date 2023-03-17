@@ -10,13 +10,9 @@ class Stats {
   }
 
   change_stats() {
-    let upgrade_values = [0, 0, 1, 1, 1, 1, 1, 2, 2, 3];
+    let upgrade_values = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     let p = int(random(0, 3));
-    Follower.stats.splice(
-      p,
-      1,
-      Follower.stats[p] + upgrade_values[ranndom(0, 9)]
-    );
+    Follower.stats[0] + 1;
   }
 }
 

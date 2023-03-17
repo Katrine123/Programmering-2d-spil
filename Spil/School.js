@@ -1,5 +1,6 @@
 let textbox_schoool = [];
 let follower_who;
+let upgrade;
 
 function school_setup() {
   textbox_schoool.push(new Text_with_button([["Yes [-25 gold]"], ["No"]]));
@@ -41,9 +42,8 @@ function school_draw() {
 function school_yes() {
   player.gold -= 25;
   state = "school_yes";
-  follower_who.health += 1;
-  follower_who.sneak += 1;
-  follower_who.attack += 1;
+  upgrade = new Stats();
+  upgrade.change_stats();
 }
 
 function school_no() {
