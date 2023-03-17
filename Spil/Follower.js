@@ -30,6 +30,7 @@ let followers = [];
 let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
+let stats;
 
 //Load billeder
 function preload() {
@@ -131,9 +132,11 @@ class Follower {
   constructor(length) {
     this.x = length * 100;
     //Stats
-    this.attack = Math.floor(Math.random() * 6);
-    this.defence = Math.floor(Math.random() * 6);
-    this.sneak = Math.floor(Math.random() * 6);
+
+    stats = new Stats();
+
+    this.stats = stats.give_stats();
+
     //Navn + billede
     this.name = navn[Math.floor(Math.random() * navn.length)];
     this.picture = images[Math.floor(Math.random() * images.length)];
@@ -154,9 +157,9 @@ class Follower {
     textAlign(CENTER, CENTER);
     textSize(12);
     text(this.name, this.x + 60, 30); //Name
-    text(this.attack, this.x + 37, 130); //Attack
-    text(this.defence, this.x + 60, 130); // Defence
-    text(this.sneak, this.x + 83, 130); //Sneak
+    text(this.stats[0], this.x + 37, 130); //Attack
+    text(this.stats[1], this.x + 60, 130); // Defence
+    text(this.stats[2], this.x + 83, 130); //Sneak
     //Cirkler
     //Attack
     fill(200, 0, 0);
