@@ -1,4 +1,5 @@
-let textbox_chest, textbox_ambush;
+let textbox_chest;
+let textbox_ambush = [];
 
 function attack_setup() {
   textbox_chest = new Text_with_button(["Continue"]);
@@ -13,7 +14,7 @@ function attack_draw() {
     print(number);
     if (number <= 4) {
       ambush();
-    } else if (number <= 5) {
+    } else if (number == 5) {
       state = "chest";
     }
   }
