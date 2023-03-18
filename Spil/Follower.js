@@ -157,18 +157,18 @@ class Follower {
     textAlign(CENTER, CENTER);
     textSize(12);
     text(this.name, this.x + 60, 30); //Name
-    text(this.stats[0], this.x + 37, 130); //Attack
-    text(this.stats[1], this.x + 60, 130); // Defence
+    text(this.stats[0], this.x + 37, 130); //Health
+    text(this.stats[1], this.x + 60, 130); // Attack
     text(this.stats[2], this.x + 83, 130); //Sneak
     //Cirkler
-    //Attack
-    fill(200, 0, 0);
+    //Health
+    fill(0, 128, 0);
     circle(this.x + 27, 130, 5);
-    //Defence
-    fill(0, 0, 200);
+    //Attack
+    fill(139, 0, 0);
     circle(this.x + 50, 130, 5);
     //Sneak
-    fill(0, 200, 0);
+    fill(70, 130, 180);
     circle(this.x + 73, 130, 5);
   }
 }

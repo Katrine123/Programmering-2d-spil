@@ -72,7 +72,7 @@ function chest() {
 class Player {
   constructor() {
     this.gold = 100;
-    this.health = 100;
+    this.health = 10;
   }
   show() {
     fill(200);
