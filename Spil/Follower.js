@@ -171,6 +171,13 @@ class Follower {
     fill(70, 130, 180);
     circle(this.x + 73, 130, 5);
   }
+
+  dead_check() {
+    if (this.stats[0] <= 0) {
+      state = "follower_dead";
+      followers.splice(followers.indexOf(follower_who), 1);
+    }
+  }
 }
 
 //Textbox with buttons
