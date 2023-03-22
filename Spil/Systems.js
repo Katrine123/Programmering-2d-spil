@@ -20,4 +20,14 @@ class Stats {
 
 class Health {}
 
-class Money {}
+class Money {
+  start_money() {
+    let m = int(random(50, 101));
+    return m;
+  }
+  lose_money() {
+    player.gold -= 25;
+  }
+
+  robbery() {}
+}

@@ -54,7 +54,7 @@ function school_draw() {
 function school_yes() {
   if (player.gold - 25 > 0 || player.gold - 25 == 0) {
     follower_who.stat.change_stats(follower_who);
-    player.gold -= 25;
+    player.money.lose_money();
     state = "school_yes";
   } else {
     state = "no_money";

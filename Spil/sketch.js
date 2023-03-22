@@ -71,7 +71,8 @@ function chest() {
 
 class Player {
   constructor() {
-    this.gold = 0;
+    this.money = new Money();
+    this.gold = this.money.start_money();
     this.health = 10;
   }
   show() {
