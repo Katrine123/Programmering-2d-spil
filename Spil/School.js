@@ -1,6 +1,5 @@
 let textbox_schoool = [];
 let follower_who;
-let upgrade;
 
 function school_setup() {
   textbox_schoool.push(new Text_with_button([["Yes"], ["No"]]));
@@ -41,13 +40,25 @@ function school_draw() {
         "seems to understand you though, after you tell them that it isn't the plan the gods made for them"
     );
   }
+  if (state == "no_money") {
+    choices[0] = state_idle;
+    textbox_schoool[1].draw(
+      "No more money",
+      "The stash is running low and the school you are sending " +
+        follower_who.name +
+        " to will not take a lecture about the gods as payment."
+    );
+  }
 }
 
 function school_yes() {
-  player.gold -= 25;
-  state = "school_yes";
-  upgrade = new Stats();
-  upgrade.change_stats();
+  if (player.gold - 25 > 0 || player.gold - 25 == 0) {
+    follower_who.stat.change_stats(follower_who);
+    player.gold -= 25;
+    state = "school_yes";
+  } else {
+    state = "no_money";
+  }
 }
 
 function school_no() {

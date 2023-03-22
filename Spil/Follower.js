@@ -133,9 +133,8 @@ class Follower {
     this.x = length * 100;
     //Stats
 
-    stats = new Stats();
-
-    this.stats = stats.give_stats();
+    this.stat = new Stats();
+    this.stats = this.stat.give_stats();
 
     //Navn + billede
     this.name = navn[Math.floor(Math.random() * navn.length)];
