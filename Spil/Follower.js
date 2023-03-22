@@ -50,7 +50,7 @@ function follower_setup() {
 
 //Draw: Cultist true/false:
 function follower_draw() {
-  print(screen, state);
+  print(state);
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {

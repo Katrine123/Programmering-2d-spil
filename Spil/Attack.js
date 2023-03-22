@@ -12,7 +12,6 @@ function attack_setup() {
 function attack_draw() {
   if (state == "scenario") {
     let number = Math.floor(Math.random() * 5) + 1;
-    print(number);
     if (number <= 3) {
       state = "ambush";
       follower_who = followers[Math.floor(Math.random() * followers.length)];
@@ -70,13 +69,16 @@ function attack_draw() {
     );
   }
   if (state == "fight") {
+    print(heretics.health);
     heretics.take_damage(follower_who.stats[1]); //Follower attacks enemy
-    heretics.attack(follower_who); //Enemy attacks follower
-    follower_who.dead_check();
+    if (heretics.health > 0) {
+      heretics.attack(follower_who); //Enemy attacks follower
+    }
   }
 }
 function use_follower() {
   state = "use_follower";
+  follower_who = followers[Math.floor(Math.random() * followers.length)];
 }
 
 function yourself() {
@@ -96,6 +98,7 @@ class Enemy {
 
   attack(victim) {
     victim.stats[0] -= this.damage;
+    victim.dead_check();
   }
   take_damage(amount) {
     this.health -= amount;

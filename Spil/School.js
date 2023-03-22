@@ -8,7 +8,6 @@ function school_setup() {
 }
 
 function school_draw() {
-  print(follower_who);
   if (state == "school") {
     choices[0] = school_yes;
     choices[1] = school_no;
