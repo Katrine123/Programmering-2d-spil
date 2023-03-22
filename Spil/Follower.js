@@ -31,6 +31,7 @@ let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
 let stats, a, d, s;
+let place = 0;
 
 //Load billeder
 function preload() {
@@ -41,7 +42,8 @@ function preload() {
 
 //Setup:
 function follower_setup() {
-  followers.push(new Follower(followers.length));
+  followers.push(new Follower(place));
+  place++;
   textbox_cultist.push(
     new Text_with_button([["Try to convince them"], ["Leave them be"]])
   );
@@ -50,7 +52,10 @@ function follower_setup() {
 
 //Draw: Cultist true/false:
 function follower_draw() {
-  print(state);
+  print(state, place);
+  if (place >= 5) {
+    place = 0;
+  }
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {
@@ -123,7 +128,8 @@ function dont_convince() {
 //Lav en ny følger
 function lav_følger() {
   if (followers.length < 5) {
-    followers.push(new Follower(followers.length));
+    followers.push(new Follower(place));
+    place++;
   }
 }
 
