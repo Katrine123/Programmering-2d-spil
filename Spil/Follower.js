@@ -68,10 +68,11 @@ function preload() {
 //Setup:
 function follower_setup() {
   followers.push(new Follower());
-  textbox_cultist.push(
-    new Text_with_button([["Try to convince them"], ["Leave them be"]])
-  );
-  textbox_cultist.push(new Text_with_button(["Continue"]));
+  textbox_cultist = new Text_with_button([
+    ["Try to convince them"],
+    ["Leave them be"],
+  ]);
+  //textbox_cultist.push(new Text_with_button(["Continue"]));
 }
 
 //Draw: Cultist true/false:
@@ -92,7 +93,7 @@ function follower_draw() {
   if (state == "cultist") {
     choices[0] = try_convince;
     choices[1] = dont_convince;
-    textbox_cultist[0].draw(
+    textbox_cultist.draw(
       "Cultist",
       "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?"
     );
@@ -100,7 +101,7 @@ function follower_draw() {
   //Success screen
   if (state == "convince") {
     choices[0] = state_idle;
-    textbox_cultist[1].draw(
+    textbox_continue.draw(
       "Succes",
       "You managed to convince them, now having " +
         followers.length +
@@ -110,7 +111,7 @@ function follower_draw() {
   //Faliure screen
   if (state == "cant_convince") {
     choices[0] = state_idle;
-    textbox_cultist[1].draw(
+    textbox_continue.draw(
       "Faliure",
       "'Uh, no thanks.' They look at you wierdly and slowly walk away. You convince yourself that they weren't cut out for it anyway"
     );
@@ -118,7 +119,7 @@ function follower_draw() {
   //Leave them be screen:
   if (state == "dont_convince") {
     choices[0] = state_idle;
-    textbox_cultist[1].draw(
+    textbox_continue.draw(
       "Leave them be",
       "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway"
     );
@@ -211,7 +212,6 @@ class Follower {
   follower_screen(x) {
     if (mouseX > x * 100 + 20 && mouseX < x * 100 + 20 + 80) {
       if (mouseY > 20 && mouseY < 140) {
-        //LAV BAGRRUND SÅ DEN PASSER TIL BILLEDE
         fill(255);
         rect(50, 125, 400, 250);
         fill(0);

@@ -1,8 +1,7 @@
-let textbox_continue, heretics;
+let heretics;
 let textbox_ambush = [];
 
 function attack_setup() {
-  textbox_continue = new Text_with_button(["Continue"]);
   textbox_ambush.push(
     new Text_with_button([["Use follower"], ["Do it yourself"]])
   );

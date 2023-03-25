@@ -11,6 +11,7 @@ function setup() {
   textbox = new Tekst();
   player = new Player();
   dice_button = new Button(222.5, 250, 75, 25);
+  textbox_continue = new Text_with_button(["Continue"]);
 }
 
 function draw() {

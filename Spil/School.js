@@ -1,16 +1,15 @@
-let textbox_schoool = [];
+let textbox_continue = [];
 let follower_who;
 
 function school_setup() {
-  textbox_schoool.push(new Text_with_button([["Yes"], ["No"]]));
-  textbox_schoool.push(new Text_with_button(["Continue"]));
+  textbox_school = new Text_with_button([["Yes"], ["No"]]);
 }
 
 function school_draw() {
   if (state == "school") {
     choices[0] = school_yes;
     choices[1] = school_no;
-    textbox_schoool[0].draw(
+    textbox_school.draw(
       "An academic upgrade",
       "Your follower " +
         follower_who.name +
@@ -21,7 +20,7 @@ function school_draw() {
   }
   if (state == "school_yes") {
     choices[0] = state_idle;
-    textbox_schoool[1].draw(
+    textbox_continue.draw(
       "Knowlegde is power",
       "You decide to pay for their studies and " +
         follower_who.name +
@@ -35,7 +34,7 @@ function school_draw() {
   }
   if (state == "school_no") {
     choices[0] = state_idle;
-    textbox_schoool[1].draw(
+    textbox_continue[1].draw(
       "Time is money",
       "While knowlegde might be power, it comes at a cost that you won't pay. " +
         follower_who.name +
@@ -44,7 +43,7 @@ function school_draw() {
   }
   if (state == "no_money") {
     choices[0] = state_idle;
-    textbox_schoool[1].draw(
+    textbox_continue[1].draw(
       "No more money",
       "The stash is running low and the school you are sending " +
         follower_who.name +
