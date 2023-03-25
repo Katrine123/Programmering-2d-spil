@@ -38,8 +38,12 @@ let bigpicture = [
 ];
 
 let story = [
-  [" Make an interesting background here that describes the person"],
-  [" write something that can work for any character"],
+  [
+    " After getting shunned by thier family they ended up on the street with no meaning in thier life",
+  ],
+  [
+    " They lost the love of their life through a horrific accident that has left them with a sense of not knowing what to do",
+  ],
   ["Maybe something sad? Idk. Just make something up"],
   ["I'm too lazy to do it right now though"],
   ["But like. Please replace this if you get a good idea :)"],
