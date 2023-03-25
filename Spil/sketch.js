@@ -79,12 +79,16 @@ class Player {
   }
   show() {
     fill(200);
-    rect(20, 420, 100, 60);
+    rect(20, 430, 100, 50);
     fill(0);
     textSize(12);
     textAlign(LEFT, CENTER);
-    text("Health: " + this.health, 25, 430);
-    text("Gold: " + this.gold, 25, 450);
+    text("Health: " + this.health, 40, 445);
+    text("Gold: " + this.gold, 40, 465);
+    fill(0, 128, 0);
+    circle(30, 445, 5);
+    fill(255, 165, 0);
+    circle(30, 465, 5);
   }
 }
 

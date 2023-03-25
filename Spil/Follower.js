@@ -2,7 +2,7 @@ let navn = [
   ["Caroline"],
   ["Bob"],
   ["Malinda"],
-  ["Jane Doe"],
+  ["Jane"],
   ["John"],
   ["Heather"],
   ["Jack"],
@@ -25,7 +25,29 @@ let picture = [
   ["Pictures/Face6.png"],
   ["Pictures/Face7.png"],
 ];
+
+//Lav bedre kvalitets billeder
+let bigpicture = [
+  ["Pictures/BigFace1.png"],
+  ["Pictures/BigFace2.png"],
+  ["Pictures/BigFace3.png"],
+  ["Pictures/BigFace4.png"],
+  ["Pictures/BigFace5.png"],
+  ["Pictures/BigFace6.png"],
+  ["Pictures/BigFace7.png"],
+];
+
+let story = [
+  [" Make an interesting background here that describes the person"],
+  [" write something that can work for any character"],
+  ["Maybe something sad? Idk. Just make something up"],
+  ["I'm too lazy to do it right now though"],
+  ["But like. Please replace this if you get a good idea :)"],
+  ["Yes i'm talking to you Frederik. if you even read this"],
+  ["Maybe i'll replace this later when i get a good idea"],
+];
 let images = [];
+let bigImages = [];
 let followers = [];
 let buttons = [];
 let choices = [[], []];
@@ -36,6 +58,9 @@ let stats, a, d, s;
 function preload() {
   for (let i = 0; i < picture.length; i++) {
     images.push(loadImage(picture[i]));
+  }
+  for (let i = 0; i < bigpicture.length; i++) {
+    bigImages.push(loadImage(bigpicture[i]));
   }
   baggrund = loadImage("Pictures/Baggrund.png");
 }
@@ -58,7 +83,11 @@ function follower_draw() {
       followers[i].test(i);
     }
   }
-
+  if (state == "idle") {
+    for (let i = 0; i < followers.length; i++) {
+      followers[i].follower_screen(i);
+    }
+  }
   //Cultist screen.
   if (state == "cultist") {
     choices[0] = try_convince;
@@ -138,12 +167,18 @@ class Follower {
     this.stats = this.stat.give_stats();
 
     //Navn + billede
+    this.number = Math.floor(Math.random() * images.length);
     this.name = navn[Math.floor(Math.random() * navn.length)];
-    this.picture = images[Math.floor(Math.random() * images.length)];
+    this.picture = images[this.number];
+    this.bigPicture = bigImages[this.number];
+    this.story = story[Math.floor(Math.random() * story.length)];
     //Arrays
     navn.splice(navn.indexOf(this.name), 1);
-    images.splice(images.indexOf(this.picture), 1);
+    images.splice(this.number, 1);
+    bigImages.splice(this.number, 1);
+    story.splice(story.indexOf(this.story), 1);
   }
+
   test(x) {
     this.x = x * 100;
     fill(250);
@@ -171,6 +206,28 @@ class Follower {
     //Sneak
     fill(70, 130, 180);
     circle(this.x + 73, 130, 5);
+  }
+
+  follower_screen(x) {
+    if (mouseX > x * 100 + 20 && mouseX < x * 100 + 20 + 80) {
+      if (mouseY > 20 && mouseY < 140) {
+        //LAV BAGRRUND SÅ DEN PASSER TIL BILLEDE
+        fill(255);
+        rect(50, 125, 400, 250);
+        fill(0);
+        textAlign(CENTER, TOP);
+        textSize(20);
+        text(this.name, 150, 135);
+        textSize(15);
+        textAlign(LEFT, TOP);
+        text("Health: " + this.stats[0], 60, 180);
+        text("Attack: " + this.stats[1], 60, 200);
+        text("Stealth: " + this.stats[2], 60, 220);
+        text(this.story, 60, 250, 180, 115);
+        image(this.bigPicture, 237.5, 137.5);
+        this.bigPicture.resize(200, 200);
+      }
+    }
   }
 
   dead_check() {
