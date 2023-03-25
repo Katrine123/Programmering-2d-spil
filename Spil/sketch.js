@@ -15,6 +15,8 @@ function setup() {
 
 function draw() {
   background(220);
+  image(baggrund, 120, 100);
+  baggrund.resize(400, 400);
   //Lav knap + følger_1
   if (state != "intro") {
     player.show();

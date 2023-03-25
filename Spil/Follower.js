@@ -31,19 +31,18 @@ let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
 let stats, a, d, s;
-let place = 0;
 
 //Load billeder
 function preload() {
   for (let i = 0; i < picture.length; i++) {
     images.push(loadImage(picture[i]));
   }
+  baggrund = loadImage("Pictures/Baggrund.png");
 }
 
 //Setup:
 function follower_setup() {
-  followers.push(new Follower(place));
-  place++;
+  followers.push(new Follower());
   textbox_cultist.push(
     new Text_with_button([["Try to convince them"], ["Leave them be"]])
   );
@@ -52,14 +51,11 @@ function follower_setup() {
 
 //Draw: Cultist true/false:
 function follower_draw() {
-  print(state, place);
-  if (place >= 5) {
-    place = 0;
-  }
+  print(state);
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {
-      followers[i].test();
+      followers[i].test(i);
     }
   }
 
@@ -128,15 +124,14 @@ function dont_convince() {
 //Lav en ny følger
 function lav_følger() {
   if (followers.length < 5) {
-    followers.push(new Follower(place));
-    place++;
+    followers.push(new Follower());
   }
 }
 
 //Klasse for følger
 class Follower {
-  constructor(length) {
-    this.x = length * 100;
+  constructor() {
+    this.x;
     //Stats
 
     this.stat = new Stats();
@@ -149,7 +144,8 @@ class Follower {
     navn.splice(navn.indexOf(this.name), 1);
     images.splice(images.indexOf(this.picture), 1);
   }
-  test() {
+  test(x) {
+    this.x = x * 100;
     fill(250);
     rect(this.x + 20, 20, 80, 120); //Hele firkanten
     rect(this.x + 20, 120, 80, 20); //Øverste firkant
@@ -193,7 +189,7 @@ class Text_with_button extends Tekst {
     this.button_text = button;
     //Makes two buttons
     for (let i = 0; i < this.button_text.length; i++) {
-      buttons.push(new Button(70, 340 - i * 60, 120, 25));
+      buttons.push(new Button(70, 340 - i * 40, 120, 25));
     }
   }
   draw(heading, tekst) {

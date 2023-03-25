@@ -28,11 +28,15 @@ function attack_draw() {
     );
   }
   if (state == "ambush") {
+    heretics.set_health();
     choices[0] = use_follower;
     choices[1] = yourself;
     textbox_ambush[0].draw(
       "An ambush",
-      "In the middle of a sceance the walls suddenly begin to shake and you're ambushed by heretics trying to abolish your great community. You must push them back and get them out, but how? Do you send a follower out, or do you do it yourself?"
+      "In the middle of a sceance the walls suddenly begin to shake and you're ambushed by heretics trying to abolish your great community. You must push them back and get them out, but how? Do you send a follower out, or do you do it yourself? \n Enemy stats: \n Health: " +
+        heretics.health +
+        " Attack:  " +
+        heretics.damage
     );
   }
   if (state == "use_follower") {
@@ -91,11 +95,13 @@ function fight() {
 }
 
 class Enemy {
-  constructor(health, damage) {
-    this.health = health;
+  constructor(damage) {
     this.damage = damage;
+    this.health = 3;
   }
-
+  set_health() {
+    this.health = 3;
+  }
   attack(victim) {
     victim.stats[0] -= this.damage;
     victim.dead_check();

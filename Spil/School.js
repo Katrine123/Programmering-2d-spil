@@ -14,7 +14,9 @@ function school_draw() {
       "An academic upgrade",
       "Your follower " +
         follower_who.name +
-        " is asking for more knowlegde. Do you want to pay for their studies?\n It will cost you 25 gold"
+        " is asking for more knowlegde. Do you want to pay for their studies?\n It will cost you 25 gold. You have " +
+        player.gold +
+        " gold"
     );
   }
   if (state == "school_yes") {

@@ -1,8 +1,8 @@
 class Stats {
   give_stats() {
-    let h = int(random(1, 6));
-    let a = int(random(0, 6));
-    let s = int(random(0, 6));
+    let h = int(random(1, 3));
+    let a = int(random(0, 3));
+    let s = int(random(0, 3));
     let stats = [h, a, s];
     return stats;
   }
