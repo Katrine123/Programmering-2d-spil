@@ -16,14 +16,29 @@ function attack_draw() {
       follower_who = followers[Math.floor(Math.random() * followers.length)];
     } else if (number <= 4) {
       state = "chest";
-      player.gold += Math.floor(Math.random() * 100) + 1;
+      player.money.robbery();
     }
   }
-  if (state == "chest") {
+  if (state == "pick-pocket") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "Riches beyound imagination",
-      "You found a chest full of gold left behind. Hopefully no one will miss the gold, cause it's yours now."
+      "Pick-pocket",
+      follower_who.name +
+        " pick-pocketed strangers walking down the main road after seeing that there was not as much gold in the stash as they thought"
+    );
+  }
+  if (state == "store robbery") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "store robbery",
+      follower_who.name + " robbed a store to get more gold in the stash"
+    );
+  }
+  if (state == "bank robbery") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "bank robbery",
+      follower_who.name + " chose to rob a bank to fill up the stash with gold"
     );
   }
   if (state == "ambush") {

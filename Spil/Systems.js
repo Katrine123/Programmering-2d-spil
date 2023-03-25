@@ -29,5 +29,18 @@ class Money {
     player.gold -= 25;
   }
 
-  robbery() {}
+  robbery() {
+    let values = [1, 1, 1, 1, 1, 2, 2, 2, 3, 3];
+    let type = values[int(random(0, 9))];
+    if (type == 1) {
+      state = "pick-pocket";
+      player.gold += int(random(4, 11));
+    } else if (type == 2) {
+      state = "store robbery";
+      player.gold += int(random(14, 26));
+    } else if (type == 3) {
+      state = "bank robbery";
+      player.gold += int(random(29, 51));
+    }
+  }
 }

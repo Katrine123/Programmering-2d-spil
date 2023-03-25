@@ -34,7 +34,7 @@ function school_draw() {
   }
   if (state == "school_no") {
     choices[0] = state_idle;
-    textbox_continue[1].draw(
+    textbox_continue.draw(
       "Time is money",
       "While knowlegde might be power, it comes at a cost that you won't pay. " +
         follower_who.name +
@@ -43,7 +43,7 @@ function school_draw() {
   }
   if (state == "no_money") {
     choices[0] = state_idle;
-    textbox_continue[1].draw(
+    textbox_continue.draw(
       "No more money",
       "The stash is running low and the school you are sending " +
         follower_who.name +
