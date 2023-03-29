@@ -44,11 +44,24 @@ let story = [
   [
     " They lost the love of their life through a horrific accident that has left them with a sense of not knowing what to do",
   ],
-  ["Maybe something sad? Idk. Just make something up"],
-  ["I'm too lazy to do it right now though"],
-  ["But like. Please replace this if you get a good idea :)"],
-  ["Yes i'm talking to you Frederik. if you even read this"],
-  ["Maybe i'll replace this later when i get a good idea"],
+  [
+    "The voices said they should join, and you allways follow the voices. Of course you do. You can´t do antýthing else",
+  ],
+  [
+    "Having lived on the streets for some time the cult came as if it was sent from the gods and help them",
+  ],
+  [
+    "With nothing new ever happening in their life they see this as an opportunity to get some spice in their life",
+  ],
+  [
+    "It was always thier dream to be part of a cult and to help the cult be something greater then they ever could be",
+  ],
+  [
+    "Since they were always an outcast, the thought of finally being able to be part of something was all they needed to hear",
+  ],
+  [
+    "After their pet died, they were at an all time low, but now have hopes to see it again through the work of the cult",
+  ],
 ];
 let images = [];
 let bigImages = [];
@@ -56,7 +69,6 @@ let followers = [];
 let buttons = [];
 let choices = [[], []];
 let textbox_cultist = [];
-let stats, a, d, s;
 
 //Load billeder
 function preload() {

@@ -1,5 +1,4 @@
 let textbox_continue = [];
-let follower_who;
 
 function school_setup() {
   textbox_school = new Text_with_button([["Yes"], ["No"]]);

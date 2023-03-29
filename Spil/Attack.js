@@ -13,10 +13,8 @@ function attack_draw() {
     let number = Math.floor(Math.random() * 5) + 1;
     if (number <= 3) {
       state = "ambush";
-      follower_who = followers[Math.floor(Math.random() * followers.length)];
     } else if (number <= 4) {
-      state = "chest";
-      player.money.robbery();
+      player.money.robbery(follower_who.stats[2]);
     }
   }
   if (state == "pick-pocket") {
@@ -30,16 +28,20 @@ function attack_draw() {
   if (state == "store robbery") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "store robbery",
+      "Store robbery",
       follower_who.name + " robbed a store to get more gold in the stash"
     );
   }
   if (state == "bank robbery") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "bank robbery",
+      "Bank robbery",
       follower_who.name + " chose to rob a bank to fill up the stash with gold"
     );
+  }
+  if (state == "robbery fail") {
+    choices[0] = state_idle;
+    textbox_continue.draw("Fail", "The robbery failed");
   }
   if (state == "ambush") {
     heretics.set_health();
