@@ -1,5 +1,7 @@
 let heretics;
+let who = [];
 let textbox_ambush = [];
+let textbox_who;
 
 function attack_setup() {
   textbox_ambush.push(
@@ -53,14 +55,21 @@ function attack_draw() {
         heretics.damage
     );
   }
+
   if (state == "use_follower") {
-    choices[0] = fight;
+    for (let i = 0; i < who.length; i++) {
+      follower_who = followers[i];
+      choices[i] = fight;
+    }
+
+    textbox_who.draw("Who?", "Great. Who should fight?");
+    /*  choices[0] = fight;
     textbox_continue.draw(
       "A loyal friend",
       "While you would obviously do it youself, you health have not been great, so you yell for a follower to go fight the heretics off, while you gather youself. " +
         follower_who.name +
         " is quick to jump in and help"
-    );
+    );*/
   }
   if (state == "yourself") {
     choices[0] = state_idle;
@@ -95,8 +104,14 @@ function attack_draw() {
   }
 }
 function use_follower() {
+  who = [];
   state = "use_follower";
-  follower_who = followers[Math.floor(Math.random() * followers.length)];
+  for (let i = 0; i < followers.length; i++) {
+    who.push(followers[i].name);
+  }
+  textbox_who = new Text_with_button(who);
+  //follower_who = followers[Math.floor(Math.random() * followers.length)];
+  print(who, textbox_who.button_text);
 }
 
 function yourself() {
@@ -127,6 +142,3 @@ class Enemy {
     }
   }
 }
-
-//An attack method
-//A lose heatlh/die method

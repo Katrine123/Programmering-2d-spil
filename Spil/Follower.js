@@ -76,7 +76,6 @@ function follower_setup() {
     ["Try to convince them"],
     ["Leave them be"],
   ]);
-  //textbox_cultist.push(new Text_with_button(["Continue"]));
 }
 
 //Draw: Cultist true/false:
@@ -249,7 +248,7 @@ class Text_with_button extends Tekst {
     //The button text
     this.button_text = button;
     //Makes two buttons
-    for (let i = 0; i < this.button_text.length; i++) {
+    for (let i = 0; i < 5; i++) {
       buttons.push(new Button(70, 340 - i * 40, 120, 25));
     }
   }
