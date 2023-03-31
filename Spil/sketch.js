@@ -2,6 +2,7 @@ let intro = true;
 let textbox, dice_button, player;
 let screen = true;
 let state = "intro";
+let follower_who;
 
 function setup() {
   createCanvas(520, 500);
@@ -52,6 +53,7 @@ function mousePressed() {
 
 function roll_dice() {
   let number = Math.floor(Math.random() * 3) + 1;
+  follower_who = followers[Math.floor(Math.random() * followers.length)];
   if (number == 1) {
     state = "cultist";
   } else if (number == 2) {
