@@ -16,34 +16,63 @@ function attack_draw() {
     if (number <= 3) {
       state = "ambush";
     } else if (number <= 4) {
-      player.money.robbery(follower_who.stats[2]);
+      player.money.robbery(follower_who.stats[2], player.gold);
     }
   }
+
   if (state == "pick-pocket") {
     choices[0] = state_idle;
     textbox_continue.draw(
       "Pick-pocket",
       follower_who.name +
-        " pick-pocketed strangers walking down the main road after seeing that there was not as much gold in the stash as they thought"
+        " pick-pocketed strangers walking down the main road after seeing that there was not as much gold in the stash as they thought, they got " +
+        change +
+        " gold"
     );
   }
   if (state == "store robbery") {
     choices[0] = state_idle;
     textbox_continue.draw(
       "Store robbery",
-      follower_who.name + " robbed a store to get more gold in the stash"
+      follower_who.name +
+        " robbed a convenience store and got" +
+        change +
+        " gold to put in the stash "
     );
   }
   if (state == "bank robbery") {
     choices[0] = state_idle;
     textbox_continue.draw(
       "Bank robbery",
-      follower_who.name + " chose to rob a bank to fill up the stash with gold"
+      follower_who.name +
+        " choose to rob a bank to help fill up the gold stash and got" +
+        change +
+        " gold"
     );
   }
-  if (state == "robbery fail") {
+  if (state == "robbery fail pick-pocket") {
     choices[0] = state_idle;
-    textbox_continue.draw("Fail", "The robbery failed");
+    textbox_continue.draw(
+      "Fail",
+      follower_who.name +
+        " tried to pick-pocket a old lady but while their hand was still in her handbag the lady noticed and beat the shit out of them"
+    );
+  }
+  if (state == "robbery fail store") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "Fail",
+      follower_who.name +
+        " tried to rob a store , howerver the clerk had other ideas and treaten to shoot them if they did not leave"
+    );
+  }
+  if (state == "robbery fail bank") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "Fail",
+      follower_who.name +
+        " tried to rob a bank but was quickly stop by the police and you had to go bail them out"
+    );
   }
   if (state == "ambush") {
     heretics.set_health();
