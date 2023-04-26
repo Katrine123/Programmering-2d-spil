@@ -11,6 +11,7 @@ function attack_setup() {
 }
 
 function attack_draw() {
+  print("follower_who = ", follower_who, "followers = ", followers);
   if (state == "scenario") {
     let number = Math.floor(Math.random() * 5) + 1;
     if (number <= 3) {
@@ -88,19 +89,13 @@ function attack_draw() {
   }
 
   if (state == "use_follower") {
-    for (let i = 0; i < who.length; i++) {
-      follower_who = followers[i];
+    //FIKS
+    for (let i = 0; i < followers.length; i++) {
+      //follower_who = followers[i];
       choices[i] = fight;
     }
 
     textbox_who.draw("Who?", "Great. Who should fight?");
-    /*  choices[0] = fight;
-    textbox_continue.draw(
-      "A loyal friend",
-      "While you would obviously do it youself, you health have not been great, so you yell for a follower to go fight the heretics off, while you gather youself. " +
-        follower_who.name +
-        " is quick to jump in and help"
-    );*/
   }
   if (state == "yourself") {
     choices[0] = state_idle;

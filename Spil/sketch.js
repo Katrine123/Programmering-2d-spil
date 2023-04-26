@@ -47,8 +47,12 @@ function mousePressed() {
   if (screen == true) {
     for (let i = 0; i < buttons.length; i++) {
       buttons[i].clicked(choices[i]);
+      if (state == "use_follower") {
+        follower_who = followers[i + 1];
+      }
     }
   }
+  //FIKS
 }
 
 function roll_dice() {
