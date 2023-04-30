@@ -128,6 +128,15 @@ function attack_draw() {
       heretics.attack(follower_who); //Enemy attacks follower
     }
   }
+  if (state == "dead") {
+    choices[0] = restart;
+    let textbox_dead = [];
+    textbox_dead = new Text_with_button(["restart"]);
+    textbox_dead.draw(
+      "You died",
+      "As your disciples look down on you lying on the ground taking your final breaths you see you are not dying in vain and that your legacy will live on in them"
+    );
+  }
 }
 function use_follower() {
   who = [];
@@ -143,6 +152,13 @@ function use_follower() {
 function yourself() {
   player.health -= 3;
   state = "yourself";
+  if (player.health <= 0) {
+    state = "dead";
+  }
+}
+
+function restart() {
+  location.reload();
 }
 
 function fight() {

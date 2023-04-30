@@ -41,8 +41,7 @@ function mousePressed() {
     dice_button.clicked(roll_dice);
   }
   if (state == "intro") {
-    state = "idle";
-    screen = false;
+    state = "tutorial";
   }
   if (screen == true) {
     for (let i = 0; i < buttons.length; i++) {

@@ -104,6 +104,23 @@ function follower_draw() {
       followers[i].follower_screen(i);
     }
   }
+
+  if (state == "tutorial") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "Turorial",
+      "To help your cult progress you need to learn some basics. When you click " +
+        '"' +
+        "Continue" +
+        '"' +
+        " you will be meet with the home screen. Her you hit the " +
+        '"' +
+        "Roll dice" +
+        '"' +
+        " button to help and defend your cult from attackers, get new members, train your members or rob places to get more gold."
+    );
+  }
+
   //Cultist screen.
   if (state == "cultist") {
     choices[0] = try_convince;
