@@ -11,7 +11,6 @@ function attack_setup() {
 }
 
 function attack_draw() {
-  print("follower_who = ", follower_who, "followers = ", followers);
   if (state == "scenario") {
     let number = Math.floor(Math.random() * 5) + 1;
     if (number <= 3) {
@@ -26,7 +25,7 @@ function attack_draw() {
     textbox_continue.draw(
       "Pick-pocket",
       follower_who.name +
-        " pick-pocketed strangers walking down the main road after seeing that there was not as much gold in the stash as they thought, they got " +
+        " pick-pocketed strangers walking down the main road after seeing that there was not as much gold in the stash as they thought.\n They got " +
         change +
         " gold"
     );
@@ -64,7 +63,7 @@ function attack_draw() {
     textbox_continue.draw(
       "Fail",
       follower_who.name +
-        " tried to rob a store , howerver the clerk had other ideas and treaten to shoot them if they did not leave"
+        " tried to rob a store , however the clerk had other ideas and treatened to shoot them if they did not leave"
     );
   }
   if (state == "robbery fail bank") {
@@ -72,7 +71,7 @@ function attack_draw() {
     textbox_continue.draw(
       "Fail",
       follower_who.name +
-        " tried to rob a bank but was quickly stop by the police and you had to go bail them out"
+        " tried to rob a bank but was quickly stopped by the police and you had to go bail them out"
     );
   }
   if (state == "ambush") {

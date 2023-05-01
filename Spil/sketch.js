@@ -9,6 +9,7 @@ function setup() {
   follower_setup();
   school_setup();
   attack_setup();
+  story_setup();
   textbox = new Tekst();
   player = new Player();
   dice_button = new Button(222.5, 250, 75, 25);
@@ -16,6 +17,7 @@ function setup() {
 }
 
 function draw() {
+  print(time);
   background(220);
   image(baggrund, 120, 100);
   baggrund.resize(400, 400);
@@ -34,6 +36,7 @@ function draw() {
   follower_draw();
   school_draw();
   attack_draw();
+  story_draw();
 }
 
 function mousePressed() {
@@ -55,7 +58,7 @@ function mousePressed() {
 }
 
 function roll_dice() {
-  let number = Math.floor(Math.random() * 3) + 1;
+  let number = Math.floor(Math.random() * 4) + 1;
   follower_who = followers[Math.floor(Math.random() * followers.length)];
   if (number == 1) {
     state = "cultist";
@@ -64,6 +67,8 @@ function roll_dice() {
     follower_who = followers[Math.floor(Math.random() * followers.length)];
   } else if (number == 3) {
     state = "scenario";
+  } else if (number == 4) {
+    state = "story";
   }
   screen = true;
   number = 0;
@@ -137,6 +142,9 @@ class Button {
   clicked(funct) {
     if (mouseX > this.x && mouseX < this.x + this.w) {
       if (mouseY > this.y && mouseY < this.y + this.h) {
+        if (state == "story") {
+          time++;
+        }
         funct();
       }
     }
