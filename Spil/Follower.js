@@ -133,12 +133,22 @@ function follower_draw() {
   //Success screen
   if (state == "convince") {
     choices[0] = state_idle;
-    textbox_continue.draw(
-      "Succes",
-      "You managed to convince them, now having " +
-        followers.length +
-        " followers at your beg and call"
-    );
+    if (followers.length > 1) {
+      textbox_continue.draw(
+        "Succes",
+        "You managed to convince them, now having " +
+          followers.length +
+          " followers at your beg and call"
+      );
+    }
+    if (followers.length == 1) {
+      textbox_continue.draw(
+        "Succes",
+        "You managed to convince them, now having " +
+          followers.length +
+          " follower at your beg and call"
+      );
+    }
   }
   //Faliure screen
   if (state == "cant_convince") {
@@ -195,7 +205,6 @@ class Follower {
   constructor() {
     this.x;
     //Stats
-
     this.stat = new Stats();
     this.stats = this.stat.give_stats();
 
@@ -205,6 +214,7 @@ class Follower {
     this.picture = images[this.number];
     this.bigPicture = bigImages[this.number];
     this.story = story[Math.floor(Math.random() * story.length)];
+
     //Arrays
     navn.splice(navn.indexOf(this.name), 1);
     images.splice(this.number, 1);
@@ -218,9 +228,11 @@ class Follower {
     rect(this.x + 20, 20, 80, 120); //Hele firkanten
     rect(this.x + 20, 120, 80, 20); //Øverste firkant
     rect(this.x + 20, 20, 80, 20); //Nederste firkant
+
     //Billede
     image(this.picture, this.x + 21, 41);
     this.picture.resize(78, 78);
+
     //Tekst
     fill(0);
     textAlign(CENTER, CENTER);
@@ -229,6 +241,7 @@ class Follower {
     text(this.stats[0], this.x + 37, 130); //Health
     text(this.stats[1], this.x + 60, 130); // Attack
     text(this.stats[2], this.x + 83, 130); //Sneak
+
     //Cirkler
     //Health
     fill(0, 128, 0);
@@ -266,6 +279,7 @@ class Follower {
     if (this.stats[0] <= 0) {
       state = "follower_dead";
       followers.splice(followers.indexOf(follower_who), 1);
+      navn.push(this.name);
     }
   }
 }

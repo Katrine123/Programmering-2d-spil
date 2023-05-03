@@ -17,7 +17,6 @@ function setup() {
 }
 
 function draw() {
-  print(time);
   background(220);
   image(baggrund, 120, 100);
   baggrund.resize(400, 400);
@@ -48,9 +47,11 @@ function mousePressed() {
   }
   if (screen == true) {
     for (let i = 0; i < buttons.length; i++) {
-      buttons[i].clicked(choices[i]);
-      if (state == "use_follower") {
-        follower_who = followers[i + 1];
+      if (state != "use_follower") {
+        buttons[i].clicked(choices[i]);
+      } else if (state == "use_follower") {
+        buttons[i].clicked(choices[i]);
+        follower_who = followers[i];
       }
     }
   }
@@ -63,8 +64,12 @@ function roll_dice() {
   if (number == 1) {
     state = "cultist";
   } else if (number == 2) {
-    state = "school";
-    follower_who = followers[Math.floor(Math.random() * followers.length)];
+    if (followers.length > 0) {
+      state = "school";
+      follower_who = followers[Math.floor(Math.random() * followers.length)];
+    } else {
+      roll_dice();
+    }
   } else if (number == 3) {
     state = "scenario";
   } else if (number == 4) {

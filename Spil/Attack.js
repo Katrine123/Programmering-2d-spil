@@ -11,6 +11,7 @@ function attack_setup() {
 }
 
 function attack_draw() {
+  print(followers.length);
   if (state == "scenario") {
     let number = Math.floor(Math.random() * 5) + 1;
     if (number <= 3) {
@@ -88,13 +89,18 @@ function attack_draw() {
   }
 
   if (state == "use_follower") {
-    //FIKS
-    for (let i = 0; i < followers.length; i++) {
-      //follower_who = followers[i];
-      choices[i] = fight;
+    if (followers.length > 0) {
+      for (let i = 0; i < followers.length; i++) {
+        choices[i] = fight;
+      }
+      textbox_who.draw("Who?", "Great. Who should fight?");
+    } else {
+      choices[0] = yourself;
+      textbox_continue.draw(
+        "No one left",
+        "You look around waiting for someone to save you, but realize no one is left. Everyone's either dead or gone, and you'll have to survive youself"
+      );
     }
-
-    textbox_who.draw("Who?", "Great. Who should fight?");
   }
   if (state == "yourself") {
     choices[0] = state_idle;
@@ -144,13 +150,15 @@ function use_follower() {
     who.push(followers[i].name);
   }
   textbox_who = new Text_with_button(who);
-  //follower_who = followers[Math.floor(Math.random() * followers.length)];
-  print(who, textbox_who.button_text);
 }
 
 function yourself() {
   player.health -= 3;
-  state = "yourself";
+  if (followers.length > 0) {
+    state = "yourself";
+  } else if (followers.length == 0) {
+    state = "idle";
+  }
   if (player.health <= 0) {
     state = "dead";
   }
