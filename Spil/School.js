@@ -51,6 +51,7 @@ function school_draw() {
   }
 }
 
+//upgrades stat for follower
 function school_yes() {
   if (player.gold - 25 > 0 || player.gold - 25 == 0) {
     follower_who.stat.change_stats(follower_who);

@@ -133,6 +133,7 @@ function attack_draw() {
       heretics.attack(follower_who); //Enemy attacks follower
     }
   }
+  //dead
   if (state == "dead") {
     choices[0] = restart;
     let textbox_dead = [];
@@ -164,6 +165,7 @@ function yourself() {
   }
 }
 
+// reloads the page
 function restart() {
   location.reload();
 }

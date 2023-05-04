@@ -1,5 +1,6 @@
 let change;
 class Stats {
+  //gives stats to follower when made
   give_stats() {
     let h = int(random(1, 6));
     let a = int(random(0, 6));
@@ -7,7 +8,7 @@ class Stats {
     let stats = [h, a, s];
     return stats;
   }
-
+  //upgrades a stat from shcool
   change_stats(follower) {
     let upgrade_values = [0, 0, 1, 1, 1, 1, 1, 2, 2, 3];
     let p = int(random(0, 3));
@@ -19,17 +20,18 @@ class Stats {
   }
 }
 
-class Health {}
-
 class Money {
+  //gives start money
   start_money() {
     let m = int(random(50, 101));
     return m;
   }
+  //takes money
   lose_money() {
     player.gold -= 25;
   }
 
+  //chooses type of robbery
   robbery(sneak, gold) {
     let values = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3];
     let type = values[int(random(0, 9))];
@@ -42,6 +44,7 @@ class Money {
     }
   }
 
+  //pick-pocket robbery
   pick_pocket(sneak, gold) {
     let chance = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
     let done = chance[int(random(sneak, chance.length))];

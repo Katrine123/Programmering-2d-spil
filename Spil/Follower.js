@@ -104,7 +104,7 @@ function follower_draw() {
       followers[i].follower_screen(i);
     }
   }
-
+  // tutorial for game
   if (state == "tutorial") {
     choices[0] = state_idle;
     textbox_continue.draw(

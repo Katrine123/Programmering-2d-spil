@@ -79,14 +79,6 @@ function roll_dice() {
   number = 0;
 }
 
-function ambush() {
-  //Attack!
-}
-
-function chest() {
-  //Get more gold. Maybe random between 1 - 100
-}
-
 class Player {
   constructor() {
     this.money = new Money();
