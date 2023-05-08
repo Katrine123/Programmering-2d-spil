@@ -1,10 +1,13 @@
 let textbox_continue = [];
 
+//Steup:
 function school_setup() {
   textbox_school = new Text_with_button([["Yes"], ["No"]]);
 }
 
+//Draw:
 function school_draw() {
+  //School screen
   if (state == "school") {
     choices[0] = school_yes;
     choices[1] = school_no;
@@ -17,6 +20,8 @@ function school_draw() {
         " gold"
     );
   }
+
+  //School Yes screen
   if (state == "school_yes") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -31,6 +36,7 @@ function school_draw() {
         follower_who.stats[2]
     );
   }
+  //School No screen
   if (state == "school_no") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -40,6 +46,7 @@ function school_draw() {
         "seems to understand you though, after you tell them that it isn't the plan the gods made for them"
     );
   }
+  //School No money screen
   if (state == "no_money") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -50,6 +57,8 @@ function school_draw() {
     );
   }
 }
+
+//Funktioner:
 
 //upgrades stat for follower
 function school_yes() {

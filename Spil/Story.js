@@ -3,7 +3,6 @@ let story_head = [
   "Write something here",
   "Headline",
   "Hello :)",
-  "I love you <3",
 ];
 let story_bottom = [
   [
@@ -14,7 +13,6 @@ let story_bottom = [
   [
     "Hello :) I'm sitting and listening to people play music, while i'm waiting for my turn.",
   ],
-  ["If you see this, please remember that i love you very much :)"],
 ];
 let time = 0;
 

@@ -3,15 +3,18 @@ let who = [];
 let textbox_ambush = [];
 let textbox_who;
 
+//Setup:
 function attack_setup() {
+  //Laver objekter
   textbox_ambush.push(
     new Text_with_button([["Use follower"], ["Do it yourself"]])
   );
   heretics = new Enemy(3, 3);
 }
 
+//Draw:
 function attack_draw() {
-  print(followers.length);
+  //FIKS//////////
   if (state == "scenario") {
     let number = Math.floor(Math.random() * 5) + 1;
     if (number <= 3) {
@@ -75,6 +78,8 @@ function attack_draw() {
         " tried to rob a bank but was quickly stopped by the police and you had to go bail them out"
     );
   }
+
+  //Ambush screen
   if (state == "ambush") {
     heretics.set_health();
     choices[0] = use_follower;
@@ -88,13 +93,16 @@ function attack_draw() {
     );
   }
 
+  //Use follower screen
   if (state == "use_follower") {
+    //Hvis der er flere end 0 followers, så lav "who should fight" screen
     if (followers.length > 0) {
       for (let i = 0; i < followers.length; i++) {
         choices[i] = fight;
       }
       textbox_who.draw("Who?", "Great. Who should fight?");
     } else {
+      //Ellers lav "No one left" screen
       choices[0] = yourself;
       textbox_continue.draw(
         "No one left",
@@ -102,6 +110,7 @@ function attack_draw() {
       );
     }
   }
+  //Youself screen
   if (state == "yourself") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -109,6 +118,7 @@ function attack_draw() {
       "Knowing none of your followers will be able to mangage this you go to fight off the attackers, hoping you wont suffer too much damage, yet knowing the gods can only protect you so much"
     );
   }
+  //Succes screen
   if (state == "ambush_succes") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -117,6 +127,7 @@ function attack_draw() {
         " manages to fight the heretics off, with only a few scratches, and you congratulate them for their efforts "
     );
   }
+  //Faliure screen
   if (state == "follower_dead") {
     choices[0] = use_follower;
     choices[1] = yourself;
@@ -127,13 +138,12 @@ function attack_draw() {
     );
   }
   if (state == "fight") {
-    print(heretics.health);
     heretics.take_damage(follower_who.stats[1]); //Follower attacks enemy
     if (heretics.health > 0) {
       heretics.attack(follower_who); //Enemy attacks follower
     }
   }
-  //dead
+  //Dead screen
   if (state == "dead") {
     choices[0] = restart;
     let textbox_dead = [];
@@ -144,6 +154,9 @@ function attack_draw() {
     );
   }
 }
+
+//Funktioner:
+
 function use_follower() {
   who = [];
   state = "use_follower";
@@ -158,7 +171,7 @@ function yourself() {
   if (followers.length > 0) {
     state = "yourself";
   } else if (followers.length == 0) {
-    state = "idle";
+    state_idle();
   }
   if (player.health <= 0) {
     state = "dead";

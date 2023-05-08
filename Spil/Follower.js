@@ -1,3 +1,4 @@
+//Navne til followers
 let navn = [
   ["Caroline"],
   ["Bob"],
@@ -16,6 +17,7 @@ let navn = [
   ["Hekate"],
   ["Lillith"],
 ];
+//Små billeder til followers
 let picture = [
   ["Pictures/Face1.png"],
   ["Pictures/Face2.png"],
@@ -26,7 +28,7 @@ let picture = [
   ["Pictures/Face7.png"],
 ];
 
-//Lav bedre kvalitets billeder
+//Større billeder til followers
 let bigpicture = [
   ["Pictures/BigFace1.png"],
   ["Pictures/BigFace2.png"],
@@ -37,6 +39,7 @@ let bigpicture = [
   ["Pictures/BigFace7.png"],
 ];
 
+//baggrund til followers
 let story = [
   [
     " After getting shunned by thier family they ended up on the street with no meaning in thier life",
@@ -63,6 +66,7 @@ let story = [
     "After their pet died, they were at an all time low, but now have hopes to see it again through the work of the cult",
   ],
 ];
+//Variabler
 let images = [];
 let bigImages = [];
 let followers = [];
@@ -83,22 +87,24 @@ function preload() {
 
 //Setup:
 function follower_setup() {
+  //Laver føste follower
   followers.push(new Follower());
+  //Laver objektet til knappen
   textbox_cultist = new Text_with_button([
     ["Try to convince them"],
     ["Leave them be"],
   ]);
 }
 
-//Draw: Cultist true/false:
+//Draw:
 function follower_draw() {
-  print(state);
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {
       followers[i].test(i);
     }
   }
+  //Viser "skærmene" for followers
   if (state == "idle") {
     for (let i = 0; i < followers.length; i++) {
       followers[i].follower_screen(i);
@@ -131,6 +137,7 @@ function follower_draw() {
     );
   }
   //Success screen
+  //Flere cultister
   if (state == "convince") {
     choices[0] = state_idle;
     if (followers.length > 1) {
@@ -141,6 +148,7 @@ function follower_draw() {
           " followers at your beg and call"
       );
     }
+    //1 cultist
     if (followers.length == 1) {
       textbox_continue.draw(
         "Succes",
@@ -166,15 +174,23 @@ function follower_draw() {
       "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway"
     );
   }
+  //5 cultister skærm
+  if (state == "full") {
+    choices[0] = state_idle;
+    textbox_continue.draw(
+      "No more space",
+      "There's no more space in your 'community' so you leave them be, even though they look like they would fit in perfectly "
+    );
+  }
 }
 
-//"Sluk" alting (Saml til en funktion maybe?):
+//"Idle skærm"
 function state_idle() {
   state = "idle";
   screen = false;
 }
 
-/////
+//Funktioner:
 
 //Try to convince follower:
 //Success:
@@ -197,6 +213,9 @@ function dont_convince() {
 function lav_følger() {
   if (followers.length < 5) {
     followers.push(new Follower());
+  }
+  if (followers.length == 5) {
+    state = "full";
   }
 }
 
@@ -255,10 +274,13 @@ class Follower {
   }
 
   follower_screen(x) {
+    //Hvis musen er inden for followers firkant laves skærmen
     if (mouseX > x * 100 + 20 && mouseX < x * 100 + 20 + 80) {
       if (mouseY > 20 && mouseY < 140) {
+        //Firkanten:
         fill(255);
         rect(50, 125, 400, 250);
+        //Teksten:
         fill(0);
         textAlign(CENTER, TOP);
         textSize(20);
@@ -269,12 +291,13 @@ class Follower {
         text("Attack: " + this.stats[1], 60, 200);
         text("Stealth: " + this.stats[2], 60, 220);
         text(this.story, 60, 250, 180, 115);
+        //Billedet
         image(this.bigPicture, 237.5, 137.5);
         this.bigPicture.resize(200, 200);
       }
     }
   }
-
+  //Metode der tjekker om follower er død
   dead_check() {
     if (this.stats[0] <= 0) {
       state = "follower_dead";
@@ -284,7 +307,7 @@ class Follower {
   }
 }
 
-//Textbox with buttons
+//Textbox with buttons. Child of Tekst
 class Text_with_button extends Tekst {
   constructor(button) {
     super();
