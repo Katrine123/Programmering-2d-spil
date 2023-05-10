@@ -50,7 +50,7 @@ class Money {
     let done = chance[int(random(sneak, chance.length))];
     if (done > 0) {
       state = "pick-pocket";
-      player.gold += int(random(4, 11));
+      player.gold += int(random(9, 16));
       change = player.gold - gold;
     } else {
       state = "robbery fail pick-pocket";
@@ -61,7 +61,7 @@ class Money {
     let done = chance[int(random(sneak, chance.length))];
     if (done > 0) {
       state = "store robbery";
-      player.gold += int(random(14, 26));
+      player.gold += int(random(19, 31));
       change = player.gold - gold;
     } else {
       state = "robbery fail store";
@@ -72,7 +72,7 @@ class Money {
     let done = chance[int(random(sneak, chance.length))];
     if (done > 0) {
       state = "bank robbery";
-      player.gold += int(random(29, 51));
+      player.gold += int(random(39, 71));
       change = player.gold - gold;
     } else {
       state = "robbery fail bank";

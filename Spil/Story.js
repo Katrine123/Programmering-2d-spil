@@ -27,12 +27,13 @@ let story_no = [
   "dbjhvoeg weto epw ",
 ];
 let story_cant = "You want to, but you cant. How unfortunate.";
-let f = 0;
+//let f = 0;
 let time = 4;
 
 function story_setup() {
   textbox_story1 = new Text_with_button([["Yes"], ["No"]]);
   textbox_end = new Text_with_button("EID");
+  effect = new Effect();
 }
 function story_draw() {
   if (state == "story") {
@@ -62,11 +63,12 @@ function story_draw() {
   if (state == "story_end") {
     choices[0] = restart;
     textbox_dead.draw(story_head[time], story_yes[time]);
-    fill(100, 0, 0, f);
+    effect.play();
+    /*fill(100, 0, 0, f);
     rect(0, 0, width, height);
     if (f <= 150) {
       f += 0.5;
-    }
+    }*/
   }
 }
 
@@ -114,4 +116,27 @@ function end() {
 function no() {
   state = "story_no";
   player.health--;
+}
+
+class Effect {
+  constructor() {
+    this.d = 1;
+    this.f = 1;
+    this.x = [];
+    this.y = [];
+    for (let i = 0; i < 8; i++) {
+      this.x.push(random(0, 500));
+      this.y.push(random(0, 500));
+    }
+  }
+  play() {
+    fill(100, 0, 0, this.f);
+    for (let i = 0; i < 8; i++) {
+      circle(this.x[i], this.y[i], this.d);
+    }
+    this.d++;
+    if (this.f < 50) {
+      this.f += 0.5;
+    }
+  }
 }
