@@ -21,6 +21,7 @@ function setup() {
 }
 
 function draw() {
+  print(state, time);
   background(220);
   //Baggrundsbilledet - Kan ses preloadet i "Follower"
   image(baggrund, 120, 100);
@@ -56,7 +57,7 @@ function mousePressed() {
   if (screen == true) {
     for (let i = 0; i < buttons.length; i++) {
       if (state != "use_follower") {
-        //Knapperne på textboxen bliver tildelt funktioner via. choicec
+        //Knapperne på textboxen bliver tildelt funktioner via. choice
         buttons[i].clicked(choices[i]);
       } else if (state == "use_follower") {
         //Hvis state er use_follower bliver follower_who til den som der bliver trykket på
@@ -69,7 +70,7 @@ function mousePressed() {
 //Funktionen roll dice som bestemmer hvad der skal ske
 function roll_dice() {
   //Skaber et heltal mellem 1 og 4
-  let number = Math.floor(Math.random() * 4) + 1;
+  let number = Math.floor(Math.random() * 5) + 1;
   //Follower_who bliver random en af de karakterer der er
   follower_who = followers[Math.floor(Math.random() * followers.length)];
   //Baseret på hvad number er så ændre staten sig
@@ -84,9 +85,18 @@ function roll_dice() {
       roll_dice();
     }
   } else if (number == 3) {
-    state = "scenario";
+    state = "ambush";
   } else if (number == 4) {
+    if (followers.length > 0) {
+      follower_who = followers[Math.floor(Math.random() * followers.length)];
+      player.money.robbery(follower_who.stats[2], player.gold);
+    } else {
+      //Hvis der ikke er nogle followers kan man ikke få skolen
+      roll_dice();
+    }
+  } else if (number == 5) {
     state = "story";
+    follower_who = followers[Math.floor(Math.random() * followers.length)];
   }
   //Skærm bliver sat til true
   screen = true;
@@ -163,9 +173,6 @@ class Button {
   clicked(funct) {
     if (mouseX > this.x && mouseX < this.x + this.w) {
       if (mouseY > this.y && mouseY < this.y + this.h) {
-        if (state == "story") {
-          time++;
-        }
         funct();
       }
     }

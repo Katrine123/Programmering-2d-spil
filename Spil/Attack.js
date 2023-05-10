@@ -2,6 +2,7 @@ let heretics;
 let who = [];
 let textbox_ambush = [];
 let textbox_who;
+let textbox_dead = [];
 
 //Setup:
 function attack_setup() {
@@ -9,21 +10,12 @@ function attack_setup() {
   textbox_ambush.push(
     new Text_with_button([["Use follower"], ["Do it yourself"]])
   );
+  textbox_dead = new Text_with_button(["Restart"]);
   heretics = new Enemy(3, 3);
 }
 
 //Draw:
 function attack_draw() {
-  //FIKS//////////
-  if (state == "scenario") {
-    let number = Math.floor(Math.random() * 5) + 1;
-    if (number <= 3) {
-      state = "ambush";
-    } else if (number <= 4) {
-      player.money.robbery(follower_who.stats[2], player.gold);
-    }
-  }
-
   if (state == "pick-pocket") {
     choices[0] = state_idle;
     textbox_continue.draw(
@@ -39,7 +31,7 @@ function attack_draw() {
     textbox_continue.draw(
       "Store robbery",
       follower_who.name +
-        " robbed a convenience store and got" +
+        " robbed a convenience store and got " +
         change +
         " gold to put in the stash "
     );
@@ -49,7 +41,7 @@ function attack_draw() {
     textbox_continue.draw(
       "Bank robbery",
       follower_who.name +
-        " choose to rob a bank to help fill up the gold stash and got" +
+        " choose to rob a bank to help fill up the gold stash and got " +
         change +
         " gold"
     );
@@ -146,8 +138,6 @@ function attack_draw() {
   //Dead screen
   if (state == "dead") {
     choices[0] = restart;
-    let textbox_dead = [];
-    textbox_dead = new Text_with_button(["restart"]);
     textbox_dead.draw(
       "You died",
       "As your disciples look down on you lying on the ground taking your final breaths you see you are not dying in vain and that your legacy will live on in them"

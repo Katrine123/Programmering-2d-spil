@@ -101,7 +101,7 @@ function follower_draw() {
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {
-      followers[i].test(i);
+      followers[i].draw(i);
     }
   }
   //Viser "skærmene" for followers
@@ -114,16 +114,8 @@ function follower_draw() {
   if (state == "tutorial") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "Turorial",
-      "To help your cult progress you need to learn some basics. When you click " +
-        '"' +
-        "Continue" +
-        '"' +
-        " you will be meet with the home screen. Her you hit the " +
-        '"' +
-        "Roll dice" +
-        '"' +
-        " button to help and defend your cult from attackers, get new members, train your members or rob places to get more gold."
+      "Tutorial",
+      'To help your cult progress you need to learn some basics. When you click "Continue" you will be met with the home screen. Here you hit the "Roll dice" button to help and defend your cult from attackers, get new members, train your members or rob places to get more gold.'
     );
   }
 
@@ -186,6 +178,9 @@ function follower_draw() {
 
 //"Idle skærm"
 function state_idle() {
+  if (state == "story_yes") {
+    time++;
+  }
   state = "idle";
   screen = false;
 }
@@ -196,7 +191,7 @@ function state_idle() {
 //Success:
 function try_convince() {
   let number = Math.floor(Math.random() * followers.length + 1);
-  if (number == 1) {
+  if (number <= 2) {
     lav_følger();
     state = "convince";
   } else {
@@ -241,7 +236,7 @@ class Follower {
     story.splice(story.indexOf(this.story), 1);
   }
 
-  test(x) {
+  draw(x) {
     this.x = x * 100;
     fill(250);
     rect(this.x + 20, 20, 80, 120); //Hele firkanten
@@ -303,6 +298,7 @@ class Follower {
       state = "follower_dead";
       followers.splice(followers.indexOf(follower_who), 1);
       navn.push(this.name);
+      //SÆT BILLEDER OG STORY TILBAGE I ARRAYS
     }
   }
 }
