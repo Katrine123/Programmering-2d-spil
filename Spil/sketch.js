@@ -3,8 +3,10 @@ let textbox, dice_button, player;
 let screen = true;
 //State beskriver hvad der sker
 let state = "intro";
+let mainState = "Intro";
 //Follower_who er den karakter der bliver brugt i scenariet
 let follower_who;
+let textbox_continue = [];
 
 function setup() {
   createCanvas(520, 500);
@@ -21,7 +23,7 @@ function setup() {
 }
 
 function draw() {
-  print(state, time);
+  print(state, mainState);
   background(220);
   //Baggrundsbilledet - Kan ses preloadet i "Follower"
   image(baggrund, 120, 100);
@@ -76,9 +78,11 @@ function roll_dice() {
   //Baseret på hvad number er så ændre staten sig
   if (number == 1) {
     state = "cultist";
+    mainState = "Follower";
   } else if (number == 2) {
     if (followers.length > 0) {
       state = "school";
+      mainState = "School";
       follower_who = followers[Math.floor(Math.random() * followers.length)];
     } else {
       //Hvis der ikke er nogle followers kan man ikke få skolen
@@ -86,21 +90,34 @@ function roll_dice() {
     }
   } else if (number == 3) {
     state = "ambush";
+    mainState = "Ambush";
   } else if (number == 4) {
     if (followers.length > 0) {
       follower_who = followers[Math.floor(Math.random() * followers.length)];
+      mainState = "Robbery";
       player.money.robbery(follower_who.stats[2], player.gold);
     } else {
       //Hvis der ikke er nogle followers kan man ikke få skolen
       roll_dice();
     }
   } else if (number == 5) {
+    mainState = "Story";
     state = "story";
     follower_who = followers[Math.floor(Math.random() * followers.length)];
   }
   //Skærm bliver sat til true
   screen = true;
   number = 0;
+}
+
+//"Idle skærm"
+function state_idle() {
+  if (state == "story_yes") {
+    time++;
+  }
+  state = "idle";
+  mainState = "Idle";
+  screen = false;
 }
 
 //Klassen Player
@@ -175,6 +192,25 @@ class Button {
       if (mouseY > this.y && mouseY < this.y + this.h) {
         funct();
       }
+    }
+  }
+}
+//Textbox with buttons. Child of Tekst
+class Text_with_button extends Tekst {
+  constructor(button) {
+    super();
+    //The button text
+    this.button_text = button;
+    //Makes two buttons
+    for (let i = 0; i < 5; i++) {
+      buttons.push(new Button(70, 340 - i * 40, 120, 25));
+    }
+  }
+  draw(heading, tekst) {
+    super.show(heading, tekst);
+    //Shows the buttons
+    for (let i = 0; i < this.button_text.length; i++) {
+      buttons[i].create(this.button_text[i]);
     }
   }
 }

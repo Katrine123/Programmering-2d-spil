@@ -66,6 +66,21 @@ let story = [
     "After their pet died, they were at an all time low, but now have hopes to see it again through the work of the cult",
   ],
 ];
+
+let cultist = [
+  "Cultist",
+  "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?",
+];
+//Overskriften til de forskellige skærme
+let follower_convince_head = [
+  "Succes",
+  "Succes",
+  "Faliure",
+  "Leave them be",
+  "No more space",
+];
+let follower_convince_bottom;
+
 //Variabler
 let images = [];
 let bigImages = [];
@@ -98,6 +113,20 @@ function follower_setup() {
 
 //Draw:
 function follower_draw() {
+  if (mainState == "Follower") {
+    //Teksten til de forskellige skærme
+    follower_convince_bottom = [
+      "You managed to convince them, now having " +
+        followers.length +
+        " followers at your beg and call",
+      "You managed to convince them, now having " +
+        followers.length +
+        " follower at your beg and call",
+      "'Uh, no thanks.' They look at you wierdly and slowly walk away. You convince yourself that they weren't cut out for it anyway",
+      "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway",
+      "There's no more space in your 'community' so you leave them be, even though they look like they would fit in perfectly ",
+    ];
+  }
   //Lav følgere:
   if (state != "intro") {
     for (let i = 0; i < followers.length; i++) {
@@ -123,10 +152,7 @@ function follower_draw() {
   if (state == "cultist") {
     choices[0] = try_convince;
     choices[1] = dont_convince;
-    textbox_cultist.draw(
-      "Cultist",
-      "You found a lonely soul wandering the streets. Do you want to try to convince them to join yout cult?"
-    );
+    textbox_cultist.draw(cultist[0], cultist[1]);
   }
   //Success screen
   //Flere cultister
@@ -134,19 +160,15 @@ function follower_draw() {
     choices[0] = state_idle;
     if (followers.length > 1) {
       textbox_continue.draw(
-        "Succes",
-        "You managed to convince them, now having " +
-          followers.length +
-          " followers at your beg and call"
+        follower_convince_head[0],
+        follower_convince_bottom[0]
       );
     }
     //1 cultist
     if (followers.length == 1) {
       textbox_continue.draw(
-        "Succes",
-        "You managed to convince them, now having " +
-          followers.length +
-          " follower at your beg and call"
+        follower_convince_head[1],
+        follower_convince_bottom[1]
       );
     }
   }
@@ -154,35 +176,26 @@ function follower_draw() {
   if (state == "cant_convince") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "Faliure",
-      "'Uh, no thanks.' They look at you wierdly and slowly walk away. You convince yourself that they weren't cut out for it anyway"
+      follower_convince_head[2],
+      follower_convince_bottom[2]
     );
   }
   //Leave them be screen:
   if (state == "dont_convince") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "Leave them be",
-      "You look at them and consider it, but decide against it. Why bother with someone who's obviously not cut out for it anyway"
+      follower_convince_head[3],
+      follower_convince_bottom[3]
     );
   }
   //5 cultister skærm
   if (state == "full") {
     choices[0] = state_idle;
     textbox_continue.draw(
-      "No more space",
-      "There's no more space in your 'community' so you leave them be, even though they look like they would fit in perfectly "
+      follower_convince_head[4],
+      follower_convince_bottom[4]
     );
   }
-}
-
-//"Idle skærm"
-function state_idle() {
-  if (state == "story_yes") {
-    time++;
-  }
-  state = "idle";
-  screen = false;
 }
 
 //Funktioner:
@@ -299,26 +312,6 @@ class Follower {
       followers.splice(followers.indexOf(follower_who), 1);
       navn.push(this.name);
       //SÆT BILLEDER OG STORY TILBAGE I ARRAYS
-    }
-  }
-}
-
-//Textbox with buttons. Child of Tekst
-class Text_with_button extends Tekst {
-  constructor(button) {
-    super();
-    //The button text
-    this.button_text = button;
-    //Makes two buttons
-    for (let i = 0; i < 5; i++) {
-      buttons.push(new Button(70, 340 - i * 40, 120, 25));
-    }
-  }
-  draw(heading, tekst) {
-    super.show(heading, tekst);
-    //Shows the buttons
-    for (let i = 0; i < this.button_text.length; i++) {
-      buttons[i].create(this.button_text[i]);
     }
   }
 }

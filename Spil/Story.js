@@ -15,20 +15,18 @@ let story_bottom = [
 let story_yes = [
   "You give them the gold. After all it's not too much",
   "It's a bit more this time, but manageable, though hopefully they won't ask again",
-  "ljadnfowefoijer",
-  "sjejfoewjooiewjropip",
-  "sfwernvn vdndjkfnvjof",
+  "You mourn the death of a friend, but it's worth it. It will be",
+  "Regret is a bitter thing. Losing so many is hard, but the gods are pleased... For now. ",
+  "How did this happen? How did it even start? Has is been worth it, or have you simply been a fickle puppet in the gods hands. It doesn't matter now. Nothing does. You feel the life ebb out of you as you draw you final breath. And then...\n Nothing",
 ];
 let story_no = [
   "You refuse. The gods aren't pleased",
   "This time you refuse. They can't keep asking like this. The next day you feel terrible though",
-  "09876321123456789",
-  "12345678900987654321",
-  "dbjhvoeg weto epw ",
+  "Death is simply too much. The gods cannot keep asking like this",
+  "Never. Never would you sacrifice that much",
 ];
 let story_cant = "You want to, but you cant. How unfortunate.";
-//let f = 0;
-let time = 4;
+let time = 0;
 
 function story_setup() {
   textbox_story1 = new Text_with_button([["Yes"], ["No"]]);
@@ -64,11 +62,6 @@ function story_draw() {
     choices[0] = restart;
     textbox_dead.draw(story_head[time], story_yes[time]);
     effect.play();
-    /*fill(100, 0, 0, f);
-    rect(0, 0, width, height);
-    if (f <= 150) {
-      f += 0.5;
-    }*/
   }
 }
 
