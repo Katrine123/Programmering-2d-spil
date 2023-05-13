@@ -33,6 +33,7 @@ class Money {
 
   //chooses type of robbery
   robbery(sneak, gold) {
+    // values so there is 60% chance for pickpocket, 30% for storerobbery, 10% for bank robbery
     let values = [1, 1, 1, 1, 1, 1, 2, 2, 2, 3];
     let type = values[int(random(0, 9))];
     if (type == 1) {
@@ -46,7 +47,10 @@ class Money {
 
   //pick-pocket robbery
   pick_pocket(sneak, gold) {
+    //array with 8 zeros and 12 ones
     let chance = [0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
+    // picks number from chance depending of followers sneak stat, if high sneak bigger chance of 1
+    // same system for store and bank robbery, only differens is amount of zeros and ones.
     let done = chance[int(random(sneak, chance.length))];
     if (done > 0) {
       state = "pick-pocket";
@@ -56,6 +60,7 @@ class Money {
       state = "robbery fail pick-pocket";
     }
   }
+  //store robbery
   store_robbery(sneak, gold) {
     let chance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
     let done = chance[int(random(sneak, chance.length))];
@@ -67,6 +72,7 @@ class Money {
       state = "robbery fail store";
     }
   }
+  // bank robbery
   bank_robbery(sneak, gold) {
     let chance = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1];
     let done = chance[int(random(sneak, chance.length))];
