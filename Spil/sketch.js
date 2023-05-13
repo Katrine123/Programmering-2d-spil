@@ -24,6 +24,7 @@ function setup() {
 
 function draw() {
   print(state, mainState);
+  stateMachine.use(mainState, state);
   background(220);
   //Baggrundsbilledet - Kan ses preloadet i "Follower"
   image(baggrund, 120, 100);

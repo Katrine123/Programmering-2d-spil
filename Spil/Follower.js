@@ -1,3 +1,5 @@
+//Funktioner, billeder, klasser og tekst for followers
+
 //Navne til followers
 let navn = [
   ["Caroline"],
@@ -103,6 +105,7 @@ function preload() {
 //Setup:
 function follower_setup() {
   //Laver føste follower
+  stateMachine = new StateMachine();
   followers.push(new Follower());
   //Laver objektet til knappen
   textbox_cultist = new Text_with_button([
@@ -133,7 +136,7 @@ function follower_draw() {
       followers[i].draw(i);
     }
   }
-  //Viser "skærmene" for followers
+  //Idle skærm
   if (state == "idle") {
     for (let i = 0; i < followers.length; i++) {
       followers[i].follower_screen(i);
@@ -147,55 +150,7 @@ function follower_draw() {
       'To help your cult progress you need to learn some basics. When you click "Continue" you will be met with the home screen. Here you hit the "Roll dice" button to help and defend your cult from attackers, get new members, train your members or rob places to get more gold.'
     );
   }
-
-  //Cultist screen.
-  if (state == "cultist") {
-    choices[0] = try_convince;
-    choices[1] = dont_convince;
-    textbox_cultist.draw(cultist[0], cultist[1]);
-  }
-  //Success screen
-  //Flere cultister
-  if (state == "convince") {
-    choices[0] = state_idle;
-    if (followers.length > 1) {
-      textbox_continue.draw(
-        follower_convince_head[0],
-        follower_convince_bottom[0]
-      );
-    }
-    //1 cultist
-    if (followers.length == 1) {
-      textbox_continue.draw(
-        follower_convince_head[1],
-        follower_convince_bottom[1]
-      );
-    }
-  }
-  //Faliure screen
-  if (state == "cant_convince") {
-    choices[0] = state_idle;
-    textbox_continue.draw(
-      follower_convince_head[2],
-      follower_convince_bottom[2]
-    );
-  }
-  //Leave them be screen:
-  if (state == "dont_convince") {
-    choices[0] = state_idle;
-    textbox_continue.draw(
-      follower_convince_head[3],
-      follower_convince_bottom[3]
-    );
-  }
-  //5 cultister skærm
-  if (state == "full") {
-    choices[0] = state_idle;
-    textbox_continue.draw(
-      follower_convince_head[4],
-      follower_convince_bottom[4]
-    );
-  }
+  stateMachine.use(mainState, state);
 }
 
 //Funktioner:

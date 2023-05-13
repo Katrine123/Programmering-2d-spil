@@ -1,3 +1,5 @@
+//Funktioner og tekst for school:
+
 let school_head = [];
 let school_bottom = [];
 
@@ -40,28 +42,6 @@ function school_draw() {
         follower_who.name +
         " to will not take a lecture about the gods as payment.",
     ];
-  }
-  //School screen
-  if (state == "school") {
-    choices[0] = school_yes;
-    choices[1] = school_no;
-    textbox_school.draw(school_head[0], school_bottom[0]);
-  }
-
-  //School Yes screen
-  if (state == "school_yes") {
-    choices[0] = state_idle;
-    textbox_continue.draw(school_head[1], school_bottom[1]);
-  }
-  //School No screen
-  if (state == "school_no") {
-    choices[0] = state_idle;
-    textbox_continue.draw(school_head[2], school_bottom[2]);
-  }
-  //School No money screen
-  if (state == "no_money") {
-    choices[0] = state_idle;
-    textbox_continue.draw(school_head[3], school_bottom[3]);
   }
 }
 
