@@ -13,17 +13,17 @@ let story_bottom = [
   "Something dramatic i guess. The gods bla bla bla yada yada yada",
 ];
 let story_yes = [
-  "You give them the gold. After all it's not too much",
-  "It's a bit more this time, but manageable, though hopefully they won't ask again",
-  "You mourn the death of a friend, but it's worth it. It will be",
-  "Regret is a bitter thing. Losing so many is hard, but the gods are pleased... For now. ",
+  "You give them the gold. After all it's not too much\n You lose 10 gold",
+  "It's a bit more this time, but manageable, though hopefully they won't ask again\n You lose 25 gold",
+  "You mourn the death of a friend, but it's worth it. It will be\n You lose a follower",
+  "Regret is a bitter thing. Losing so many is hard, but the gods are pleased... For now.\n You lose 3 followers",
   "How did this happen? How did it even start? Has is been worth it, or have you simply been a fickle puppet in the gods hands. It doesn't matter now. Nothing does. You feel the life ebb out of you as you draw you final breath. And then...\n Nothing",
 ];
 let story_no = [
-  "You refuse. The gods aren't pleased",
-  "This time you refuse. They can't keep asking like this. The next day you feel terrible though",
-  "Death is simply too much. The gods cannot keep asking like this",
-  "Never. Never would you sacrifice that much",
+  "You refuse. The gods aren't pleased\n You lose 1 health ",
+  "This time you refuse. They can't keep asking like this. The next day you feel terrible though\n You lose 1 health",
+  "Death is simply too much. The gods cannot keep asking like this\n You lose 1 health",
+  "Never. Never would you sacrifice that much\n You lose 1 health",
 ];
 let story_cant = "You want to, but you cant. How unfortunate.";
 let time = 0;

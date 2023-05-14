@@ -24,7 +24,6 @@ function setup() {
 
 function draw() {
   print(state, mainState);
-  stateMachine.use(mainState, state);
   background(220);
   //Baggrundsbilledet - Kan ses preloadet i "Follower"
   image(baggrund, 120, 100);
@@ -46,6 +45,7 @@ function draw() {
   school_draw();
   attack_draw();
   story_draw();
+  stateMachine.use(mainState, state);
 }
 
 function mousePressed() {

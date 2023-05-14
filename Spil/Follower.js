@@ -150,7 +150,6 @@ function follower_draw() {
       'To help your cult progress you need to learn some basics. When you click "Continue" you will be met with the home screen. Here you hit the "Roll dice" button to help and defend your cult from attackers, get new members, train your members or rob places to get more gold.'
     );
   }
-  stateMachine.use(mainState, state);
 }
 
 //Funktioner:
